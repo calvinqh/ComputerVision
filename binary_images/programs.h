@@ -9,7 +9,9 @@ using namespace ComputerVisionProjects;
 
 namespace Programs {
   void createBinaryImage(Image *an_image, Image *out_image, size_t threshold);
-  void pz();
+  
+  void createLabeledImage(Image *binary_image, Image *out_image);
+
 } //namespace Programs
 
 #endif // PROGRAMS_H_
