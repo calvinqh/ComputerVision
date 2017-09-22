@@ -10,7 +10,7 @@ using namespace std;
 
 namespace Programs {
   void createBinaryImage(Image *an_image, Image *out_image, size_t threshold) {
-    cout << "Creating Binary Image....." << endl;
+    cout << "Creating Binary Image ..." << endl;
     out_image->AllocateSpaceAndSetSize(an_image->num_rows(), an_image->num_columns());
     out_image->SetNumberGrayLevels(an_image->num_gray_levels());
     for(size_t i = 0; i< an_image->num_rows(); i++) {
@@ -21,7 +21,15 @@ namespace Programs {
         out_image->SetPixel(i,j,byte);
       }
     }
-    cout << out_image->num_gray_levels() << endl;
+    cout << "Binary Image created." << endl;
+  }
+
+
+  void createLabeledImage(Image *binary_image, Image *out_image) {
+    cout << "Labeling Image ..." << endl;
+    
+
+    cout << "Labeled Image created." << endl;
   }
 
 
