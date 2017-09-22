@@ -14,12 +14,13 @@ using namespace Programs;
 int
 main(int argc, char **argv){
   
-  if (argc!=3) {
-    printf("Usage: %s file1 file2\n", argv[0]);
+  if (argc!=4) {
+    printf("Usage: %s file1 file2 threshold\n", argv[0]);
     return 0;
   }
   const string input_file(argv[1]);
   const string output_file(argv[2]);
+  const size_t threshold = atoi(argv[3]);
 
   Image an_image;
   Image out_image;
@@ -27,18 +28,13 @@ main(int argc, char **argv){
     cout <<"Can't open file " << input_file << endl;
     return 0;
   }
-  
-  // Draw a line from (0, 0) to (100, 240) having gray-value
-  // 200.
-  DrawLine(0, 0, 100, 240, 200,
-	   &an_image); 
-  
-  if (!WriteImage(output_file, an_image)){
+ 
+  //Create the binary image, image is saved into out_image 
+  createBinaryImage(&an_image, &out_image, threshold);
+
+  if (!WriteImage(output_file, out_image)){
     cout << "Can't write to file " << output_file << endl;
     return 0;
   }
 
-  unsigned long s = 2;
-  pz();
-  //createBinaryImage(&an_image, &out_image, s);
 }
