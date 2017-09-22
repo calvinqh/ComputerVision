@@ -8,7 +8,7 @@
 using namespace ComputerVisionProjects;
 
 namespace Programs {
-  void createBinaryImage(Image *an_image, Image *out_image, unsigned long threshold);
+  void createBinaryImage(Image *an_image, Image *out_image, size_t threshold);
   void pz();
 } //namespace Programs
 
