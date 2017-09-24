@@ -32,9 +32,9 @@ main(int argc, char **argv){
   //Create the binary image, image is saved into binary_image 
   CreateBinaryImage(&an_image, &binary_image, threshold);
   
-  Image label_image;
+  Image label_image, attribute_image;
   CreateLabeledImage(&binary_image, &label_image);
-
+  ComputeAttributes(&label_image, "file.txt", &attribute_image);
   if (!WriteImage("binary_image.pgm", binary_image)) {
     cout << "Can't write to binary image file"  <<  endl;
   }  
