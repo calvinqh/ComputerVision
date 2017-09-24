@@ -65,7 +65,7 @@ public:
 
   void Extend(int size) {
     for (int i = 0; i < size; i++) {
-      s.push_back(-1);
+      s.push_back(0);
     }
   }
 
@@ -78,14 +78,10 @@ public:
     cout << endl;
   }
 
-	/*
+	
 	size_t GetSize(){
 		return s.size();
 	}
-	int GetPos(int pos){
-		return s[pos];
-	}
-	*/
 
 private:
 	vector<int> s;
