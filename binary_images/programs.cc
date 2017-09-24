@@ -62,7 +62,6 @@ namespace Programs {
             label_counter++;
             if(label_counter > label_equivalence.GetSize())
               label_equivalence.Extend(label_equivalence.GetSize());
-            cout << label_counter << ", " ;
           }
           if(b > 0 && c > 0 && b != c) {
             int root1 = label_equivalence.Find(b);
