@@ -20,11 +20,10 @@ class DisjSets{
 public:
 	explicit DisjSets( int numElements ) {
 		for(size_t i = 0; i < numElements+1; ++i){
-			s.push_back(-1);
+			s.push_back(0);
 		}
 	}
 
-	//
 	int Find( int x ) const{
 		//cout << "No Change Find" << endl;
 		if(s[x] < 1)
@@ -64,9 +63,18 @@ public:
 		return true;
 	}
 
+  void Extend(int size) {
+    for (int i = 0; i < size; i++) {
+      s.push_back(-1);
+    }
+  }
+
   void print() {
-    for(int i = 1; i < s.size(); i++)
-      cout << s[i] << ' ';
+    for(int i = 1; i < s.size(); i++) {
+      if(s[i] != 0)
+        cout << i <<  ":"  << s[i] << endl;
+    
+    }
     cout << endl;
   }
 
