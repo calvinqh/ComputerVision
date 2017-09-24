@@ -8,9 +8,11 @@
 using namespace ComputerVisionProjects;
 
 namespace Programs {
-  void createBinaryImage(Image *an_image, Image *out_image, size_t threshold);
+  void CreateBinaryImage(Image *an_image, Image *out_image, size_t threshold);
   
-  void createLabeledImage(Image *binary_image, Image *out_image);
+  void CreateLabeledImage(Image *binary_image, Image *out_image);
+
+  void ComputerAttributes(Image *labelImage, string database, Image *outImage);
 
 } //namespace Programs
 
