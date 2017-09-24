@@ -23,18 +23,24 @@ main(int argc, char **argv){
   const size_t threshold = atoi(argv[3]);
 
   Image an_image;
-  Image out_image;
+  Image binary_image;
   if (!ReadImage(input_file, &an_image)) {
     cout <<"Can't open file " << input_file << endl;
     return 0;
   }
  
-  //Create the binary image, image is saved into out_image 
-  createBinaryImage(&an_image, &out_image, threshold);
+  //Create the binary image, image is saved into binary_image 
+  createBinaryImage(&an_image, &binary_image, threshold);
+  
+  Image label_image;
+  createLabeledImage(&binary_image, &label_image);
 
-  if (!WriteImage(output_file, out_image)){
+  if (!WriteImage("binary_image.pgm", binary_image)) {
+    cout << "Can't write to binary image file"  <<  endl;
+  }  
+  if (!WriteImage(output_file, label_image)){
     cout << "Can't write to file " << output_file << endl;
     return 0;
   }
-
+  
 }
