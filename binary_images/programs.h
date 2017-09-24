@@ -12,7 +12,7 @@ namespace Programs {
   
   void CreateLabeledImage(Image *binary_image, Image *out_image);
 
-  void ComputerAttributes(Image *labelImage, std::string database, Image *outImage);
+  void ComputeAttributes(Image *label_image, std::string database, Image *out_image);
 
 } //namespace Programs
 
