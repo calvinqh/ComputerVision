@@ -54,6 +54,17 @@ class Image {
     return pixels_[i][j];
   }
 
+
+  int SetPixelSafe(size_t i, size_t j, int gray_level) {
+    if( i < 0 || i >= num_rows_ || j < 0 || j >= num_columns_) return -1;
+    pixels_[i][j] = gray_level;
+  }
+
+  int GetPixelSafe(size_t i, size_t j) {
+     if( i < 0 || i >= num_rows_ || j < 0 || j >= num_columns_) return -1;
+     return pixels_[i][j]; 
+  }
+
  private:
   void DeallocateSpace();
 
