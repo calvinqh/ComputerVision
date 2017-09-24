@@ -8,6 +8,8 @@ using namespace std;
 
 namespace Programs {
   
-  void Compute
+  void ComputeAttributes(Image *labelImage, string database, Image *outImage) {
+
+  }
 
 }
