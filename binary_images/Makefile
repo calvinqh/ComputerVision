@@ -30,7 +30,7 @@ LIBS_ALL =  -L/usr/lib -L/usr/local/lib
 
 #First Program (ListTest)
 
-Cpp_OBJ=image.o image_demo.o programs.o compute_attributes.o
+Cpp_OBJ=image.o image_demo.o programs.o compute_attributes.o classify_instances.o
 
 PROGRAM_NAME=image_demo
 

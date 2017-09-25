@@ -14,6 +14,7 @@ namespace Programs {
 
   void ComputeAttributes(Image *label_image, std::string database, Image *out_image);
 
+  void ClassifyInstances(Image *input_image, std::string database, Image *out_image); 
 } //namespace Programs
 
 #endif // PROGRAMS_H_
