@@ -1,10 +1,11 @@
-#include ""
+#include "image.h"
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
 #include <string>
 
 using namespace std;
+using namespace ComputerVisionProjects;
 
 namespace Programs {
 
