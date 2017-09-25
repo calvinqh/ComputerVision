@@ -58,6 +58,31 @@ namespace Programs {
       cout << "Y: " << center_map[it->first][2] << endl;  
       cout << "----------------" << endl;
     }
+    //maps labels to their a,b,c paramets
+    unordered_map<int,vector<size_t>> parameters_map;
+    for(size_t row = 0; row < label_image->num_rows(); row++){
+      for(size_t col = 0; col < label_image->num_columns(); col++){
+        int label = label_image->GetPixel(row,col);
+        if(label != 0){
+          size_t x_center = center_map[label][1];
+          size_t y_center = center_map[label][2];
+          size_t a = col - x_center;
+          size_t c = row - y_center;
+          size_t b = 2 * a * c;
+          a *= a;
+          b *= b;
+          if(parameters_map.Find(label) == parameters_map.end()) {
+            vector<size_t> params = {a, b, c};
+            parameters_map[label] = params;             
+          }
+        }
+      }
+    }
+    
+    //calculate theta and rho
+    for(auto it = parameters_map.begin(); it != parameters_map.end(); ++it) {
+      cout << endl;
+    }
 
   }
 }
