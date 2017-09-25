@@ -1,4 +1,5 @@
 #include "programs.h"
+#include "image.h"
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
