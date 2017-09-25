@@ -71,7 +71,7 @@ namespace Programs {
           size_t b = 2 * a * c;
           a *= a;
           b *= b;
-          if(parameters_map.Find(label) == parameters_map.end()) {
+          if(parameters_map.find(label) == parameters_map.end()) {
             vector<size_t> params = {a, b, c};
             parameters_map[label] = params;             
           }
