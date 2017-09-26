@@ -6,7 +6,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-
+#include <math.h>
 
 using namespace std;
 
@@ -73,15 +73,33 @@ namespace Programs {
           a *= a;
           b *= b;
           if(parameters_map.find(label) == parameters_map.end()) {
-            vector<size_t> params = {a, b, c};
+            //the 4th and 5th hold theta and rho for the instance
+            vector<size_t> params = {a, b, c, 0, 0}; 
             parameters_map[label] = params;             
           }
+          parameters_map[label][0] += a;
+          parameters_map[label][1] += b;
+          parameters_map[label][2] += c;
         }
       }
     }
     
     //calculate theta and rho
     for(auto it = parameters_map.begin(); it != parameters_map.end(); ++it) {
+      int label = it->first;
+      long double a = parameters_map[label][0];
+      long double  b = parameters_map[label][1];
+      long double c = parameters_map[label][2];
+      long double t1 = a-c;
+      long double denom = sqrt((b*b)+(t1*t1));
+      long double sin_val = b/denom;
+      long double cos_val = (a-c)/denom;
+      long double sin_theta = asin(sin_val)/2;
+      long double cos_theta = acos(cos_val)/2;
+      cout << "Params: " << a << ", " << b << ", " << c << endl;
+      cout << "Denom: " << denom << endl;
+      cout << "Values: " << sin_val << " =? " << cos_val << endl;
+      cout << "Theta: " << sin_theta << " =? " << cos_theta << endl;
       cout << endl;
     }
 
