@@ -100,6 +100,16 @@ namespace Programs {
       cout << "Denom: " << denom << endl;
       cout << "Values: " << sin_val << " =? " << cos_val << endl;
       cout << "Theta: " << sin_theta << " =? " << cos_theta << endl;
+      long double tan_theta = atan2(b,a-c) * .5;
+      cout << "Theta using tan: " << tan_theta << endl;
+      
+      size_t x_center = center_map[label][1];
+      size_t y_center = center_map[label][2];
+      long double rho = x_center*sin(tan_theta) - y_center*cos(tan_theta);
+      cout << "Rho: " << rho << endl; 
+
+      parameters_map[label][3] = size_t(tan_theta);
+      parameters_map[label][4] = size_t(rho);
       cout << endl;
     }
 
