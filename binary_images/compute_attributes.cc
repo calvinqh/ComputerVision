@@ -17,7 +17,7 @@ namespace Programs {
     out_image->SetNumberGrayLevels(label_image->num_gray_levels());
     
     //maps labels to a list [area, sum of x, sum of y]
-    unordered_map<int, vector<size_t>> center_map;
+    unordered_map<int, vector<double>> center_map;
     vector<int> label_list;
 
     //find the area and the sum of x's and y's 
@@ -27,7 +27,7 @@ namespace Programs {
         if(label != 0) {
           //if key does not exist
           if(center_map.find(label) == center_map.end()){
-            vector<size_t> props = {1,col,row};
+            vector<double> props = {1,double(col),double(row)};
             center_map[label] = props;
             //label_list.push_back(label);
           }
@@ -60,21 +60,22 @@ namespace Programs {
       cout << "----------------" << endl;
     }
     //maps labels to their a,b,c paramets
-    unordered_map<int,vector<size_t>> parameters_map;
+    unordered_map<int,vector<double>> parameters_map;
     for(size_t row = 0; row < label_image->num_rows(); row++){
       for(size_t col = 0; col < label_image->num_columns(); col++){
         int label = label_image->GetPixel(row,col);
         if(label != 0){
-          size_t x_center = center_map[label][1];
-          size_t y_center = center_map[label][2];
-          size_t a = col - x_center;
-          size_t c = row - y_center;
-          size_t b = 2 * a * c;
+          double x_center = center_map[label][1];
+          double y_center = center_map[label][2];
+          double a = col - x_center;
+          double c = row - y_center;
+          double b = 2 * a * c;
           a *= a;
           b *= b;
+          c *= c;
           if(parameters_map.find(label) == parameters_map.end()) {
             //the 4th and 5th hold theta and rho for the instance
-            vector<size_t> params = {a, b, c, 0, 0}; 
+            vector<double> params = {a, b, c, 0, 0}; 
             parameters_map[label] = params;             
           }
           parameters_map[label][0] += a;
@@ -90,16 +91,7 @@ namespace Programs {
       long double a = parameters_map[label][0];
       long double  b = parameters_map[label][1];
       long double c = parameters_map[label][2];
-      long double t1 = a-c;
-      long double denom = sqrt((b*b)+(t1*t1));
-      long double sin_val = b/denom;
-      long double cos_val = (a-c)/denom;
-      long double sin_theta = asin(sin_val)/2;
-      long double cos_theta = acos(cos_val)/2;
       cout << "Params: " << a << ", " << b << ", " << c << endl;
-      cout << "Denom: " << denom << endl;
-      cout << "Values: " << sin_val << " =? " << cos_val << endl;
-      cout << "Theta: " << sin_theta << " =? " << cos_theta << endl;
       long double tan_theta = atan2(b,a-c) * .5;
       cout << "Theta using tan: " << tan_theta << endl;
       
@@ -108,8 +100,8 @@ namespace Programs {
       long double rho = x_center*sin(tan_theta) - y_center*cos(tan_theta);
       cout << "Rho: " << rho << endl; 
 
-      parameters_map[label][3] = size_t(tan_theta);
-      parameters_map[label][4] = size_t(rho);
+      parameters_map[label][3] = tan_theta;
+      parameters_map[label][4] = rho;
       cout << endl;
     }
 
