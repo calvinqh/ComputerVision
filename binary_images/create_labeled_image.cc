@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-
+#include <unordered_map>
 using namespace std;
 
 namespace Programs {
@@ -58,6 +58,8 @@ namespace Programs {
         }
       }
     }
+    unordered_map<int, int> gray_label_map;
+    int gray_value = 20;
     //resolve equivalences on the output image
     for(size_t r = 0; r < out_image->num_rows(); r++) {
       for(size_t c = 0; c < out_image->num_columns(); c++) {
@@ -66,7 +68,11 @@ namespace Programs {
         if(label != 0) {
           //check if it has any equivalency (what set it belongs to)
           int set_owner = label_equivalence.Find(label);
-          out_image->SetPixel(r,c,set_owner);
+          if(gray_label_map.find(set_owner) == gray_label_map.end()) {
+            gray_label_map[set_owner] = gray_value;
+            gray_value += 25;
+          }
+          out_image->SetPixel(r,c,gray_label_map[set_owner]);
         }
       }
     }
