@@ -214,7 +214,7 @@ DrawLine(int x0, int y0, int x1, int y1, int color,
   done = 0;
 
   while (!done) {
-    an_image->SetPixel(x,y,color);
+    an_image->SetPixelSafe(x,y,color);
   
     // Move to the next point.
     switch(dir) {
