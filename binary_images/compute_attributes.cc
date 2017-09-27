@@ -13,7 +13,6 @@ using namespace std;
 namespace Programs {
   
   void ComputeAttributes(Image *label_image, string database, Image *out_image) {
-    out_image->AllocateSpaceAndSetSize(label_image->num_rows(), label_image->num_columns());
     out_image->SetNumberGrayLevels(label_image->num_gray_levels());
     
     //maps labels to a list [area, sum of x, sum of y]
@@ -60,6 +59,7 @@ namespace Programs {
       cout << "----------------" << endl;
     }
     //maps labels to their a,b,c paramets
+    //[a,b,c,theta,rho]
     unordered_map<int,vector<double>> parameters_map;
     for(size_t row = 0; row < label_image->num_rows(); row++){
       for(size_t col = 0; col < label_image->num_columns(); col++){
@@ -71,7 +71,6 @@ namespace Programs {
           double c = row - y_center;
           double b = 2 * a * c;
           a *= a;
-          b *= b;
           c *= c;
           if(parameters_map.find(label) == parameters_map.end()) {
             //the 4th and 5th hold theta and rho for the instance
@@ -85,7 +84,7 @@ namespace Programs {
       }
     }
     
-    //calculate theta and rho
+    //calculate theta and rho and draw line
     for(auto it = parameters_map.begin(); it != parameters_map.end(); ++it) {
       int label = it->first;
       long double a = parameters_map[label][0];
@@ -102,8 +101,15 @@ namespace Programs {
 
       parameters_map[label][3] = tan_theta;
       parameters_map[label][4] = rho;
+
+      cout << sin(tan_theta) << endl;
+      double x1 = x_center+1000000;
+      double y1 = ((x1*sin(tan_theta))+rho)/cos(tan_theta);
+      cout << "Center    : {" << x_center << ", " << y_center << ")" << endl; 
+      cout << "New coords: (" << x1 << ", " << y1 << ")" <<  endl;
+      DrawLine(size_t(y_center),size_t(x_center),size_t(y1),size_t(x1),255,out_image);
       cout << endl;
     }
-
+    
   }
 }
