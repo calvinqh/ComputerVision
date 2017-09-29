@@ -86,28 +86,30 @@ namespace Programs {
     //calculate theta and rho and draw line
     for(auto it = parameters_map.begin(); it != parameters_map.end(); ++it) {
       int label = it->first;
+      double x_center = center_map[label][1];
+      double y_center = center_map[label][2];
       double a = parameters_map[label][0];
       double b = parameters_map[label][1];
       double c = parameters_map[label][2];
       cout << "Label: " << label << endl;
       cout << "Params: " << a << ", " << b << ", " << c << endl;
       double tan_theta = atan2(b,a-c)/2;
-      cout << "Theta using tan: " << tan_theta << endl;
-      
-      double x_center = center_map[label][1];
-      double y_center = center_map[label][2];
-    
-      //tan_theta = -.882966;
+      cout << "Theta: " << tan_theta << endl;
+      double rho = -1*((x_center*sin(tan_theta))-(y_center*cos(tan_theta)));
+      cout << "Rho: " << rho << endl;
 
+      //double cos_theta = acos(b,a-c)/2;
+      //double sin_theta = asin(b,a-c)/2;
+      
       double inter = (a*pow(sin(tan_theta),2)) - (b*sin(tan_theta)*cos(tan_theta)) + (c*pow(cos(tan_theta),2));
       cout << "Inertia " << inter << endl;
 
       parameters_map[label][3] = tan_theta;
 
-      //double x1 = x_center+10;
-      //double y1 = ((x1*sin(tan_theta))+rho)/cos(tan_theta);
-      double x1 = x_center + (200*sin(tan_theta));
-      double y1 = y_center + (200*cos(tan_theta));
+      double x1 = x_center+100;
+      double y1 = ((x1*sin(tan_theta))+rho)/cos(tan_theta);
+      //double x1 = x_center + (200*sin(tan_theta));
+      //double y1 = y_center + (200*cos(tan_theta));
       cout << "Center    : {" << x_center << ", " << y_center << ")" << endl; 
       cout << "New coords: (" << x1 << ", " << y1 << ")" <<  endl;
       DrawLine(size_t(y_center),size_t(x_center),size_t(y1),size_t(x1),255,out_image);
