@@ -65,18 +65,17 @@ namespace Programs {
       for(size_t col = 0; col < label_image->num_columns(); col++){
         int label = label_image->GetPixel(row,col);
         if(label != 0){
+          if(parameters_map.find(label) == parameters_map.end()) {
+            vector<double> params = {0,0,0,0,0};
+            parameters_map[label] = params;
+          }
           double x_center = center_map[label][1];
           double y_center = center_map[label][2];
-          double a = col - x_center;
-          double c = row - y_center;
-          double b = 2 * a * c;
-          a *= a;
-          c *= c;
-          if(parameters_map.find(label) == parameters_map.end()) {
-            //the 4th and 5th hold theta and rho for the instance
-            vector<double> params = {a, b, c, 0, 0}; 
-            parameters_map[label] = params;             
-          }
+          double x_prime = col - x_center;
+          double y_prime = row - y_center;
+          double a = pow(x_prime,2); //x'^2
+          double c = pow(y_prime,2); //y`^2
+          double b = 2 * x_prime * y_prime; //2 * x` * y`
           parameters_map[label][0] += a;
           parameters_map[label][1] += b;
           parameters_map[label][2] += c;
@@ -87,24 +86,28 @@ namespace Programs {
     //calculate theta and rho and draw line
     for(auto it = parameters_map.begin(); it != parameters_map.end(); ++it) {
       int label = it->first;
-      long double a = parameters_map[label][0];
-      long double  b = parameters_map[label][1];
-      long double c = parameters_map[label][2];
+      double a = parameters_map[label][0];
+      double b = parameters_map[label][1];
+      double c = parameters_map[label][2];
+      cout << "Label: " << label << endl;
       cout << "Params: " << a << ", " << b << ", " << c << endl;
-      long double tan_theta = atan2(b,a-c) * .5;
+      double tan_theta = atan2(b,a-c)/2;
       cout << "Theta using tan: " << tan_theta << endl;
       
-      size_t x_center = center_map[label][1];
-      size_t y_center = center_map[label][2];
-      long double rho = x_center*sin(tan_theta) - y_center*cos(tan_theta);
-      cout << "Rho: " << rho << endl; 
+      double x_center = center_map[label][1];
+      double y_center = center_map[label][2];
+    
+      //tan_theta = -.882966;
+
+      double inter = (a*pow(sin(tan_theta),2)) - (b*sin(tan_theta)*cos(tan_theta)) + (c*pow(cos(tan_theta),2));
+      cout << "Inertia " << inter << endl;
 
       parameters_map[label][3] = tan_theta;
-      parameters_map[label][4] = rho;
 
-      cout << sin(tan_theta) << endl;
-      double x1 = x_center+1000000;
-      double y1 = ((x1*sin(tan_theta))+rho)/cos(tan_theta);
+      //double x1 = x_center+10;
+      //double y1 = ((x1*sin(tan_theta))+rho)/cos(tan_theta);
+      double x1 = x_center + (200*sin(tan_theta));
+      double y1 = y_center + (200*cos(tan_theta));
       cout << "Center    : {" << x_center << ", " << y_center << ")" << endl; 
       cout << "New coords: (" << x1 << ", " << y1 << ")" <<  endl;
       DrawLine(size_t(y_center),size_t(x_center),size_t(y1),size_t(x1),255,out_image);
