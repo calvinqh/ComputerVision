@@ -101,11 +101,11 @@ namespace Programs {
       //double cos_theta = acos(b,a-c)/2;
       //double sin_theta = asin(b,a-c)/2;
       
-      double inter = (a*pow(sin(tan_theta),2)) - (b*sin(tan_theta)*cos(tan_theta)) + (c*pow(cos(tan_theta),2));
-      cout << "Inertia " << inter << endl;
+      double inertia = (a*pow(sin(tan_theta),2)) - (b*sin(tan_theta)*cos(tan_theta)) + (c*pow(cos(tan_theta),2));
+      cout << "Inertia " << inertia << endl;
 
-      parameters_map[label][3] = tan_theta;
-
+      parameters_map[label][3] = inertia;
+      parameters_map[label][4] = tan_theta;
       double x1 = x_center+100;
       double y1 = ((x1*sin(tan_theta))+rho)/cos(tan_theta);
       //double x1 = x_center + (200*sin(tan_theta));
@@ -116,5 +116,24 @@ namespace Programs {
       cout << endl;
     }
     
+    //write information into text file
+    FILE *output = fopen(database.c_str(), "w");
+    if(output == 0) {
+      cout << "Can't read file";
+      return ;
+    }
+    for(auto it = parameters_map.begin(); it != parameters_map.end(); it++) {
+      string output_data = "";
+      int label = it->first;
+      int x_center = center_map[label][0];
+      int y_center = center_map[label][1];
+      double inertia = parameters_map[label][3];
+      double theta = parameters_map[label][4];
+      output_data = to_string(label) + " " + to_string(x_center) + " " + to_string(y_center) + " ";
+      output_data += to_string(inertia) + " " + to_string(theta) + "\n";
+      cout << output_data << endl;
+      fprintf(output, output_data.c_str());
+    }
+    fclose(output);
   }
 }
