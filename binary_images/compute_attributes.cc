@@ -13,11 +13,13 @@ using namespace std;
 namespace Programs {
  
   vector<vector<double>> ComputeAttributes(Image *label_image, string database, Image *out_image) {
-    out_image->AllocateSpaceAndSetSize(label_image->num_rows(), label_image->num_columns()); 
-    out_image->SetNumberGrayLevels(label_image->num_gray_levels());
-    for(size_t i = 0; i < label_image->num_rows(); i++) {
-      for(size_t j = 0; j < label_image->num_columns(); j++) {
-        out_image->SetPixel(i,j,label_image->GetPixel(i,j));
+    if(out_image != nullptr) {
+      out_image->AllocateSpaceAndSetSize(label_image->num_rows(), label_image->num_columns()); 
+      out_image->SetNumberGrayLevels(label_image->num_gray_levels());
+      for(size_t i = 0; i < label_image->num_rows(); i++) {
+        for(size_t j = 0; j < label_image->num_columns(); j++) {
+          out_image->SetPixel(i,j,label_image->GetPixel(i,j));
+        }
       }
     }
     //maps labels to a list [area, sum of x, sum of y]
@@ -85,26 +87,19 @@ namespace Programs {
       double a = parameters_map[label][0];
       double b = parameters_map[label][1];
       double c = parameters_map[label][2];
-      cout << "Label: " << label << endl;
-      cout << "Params: " << a << ", " << b << ", " << c << endl;
       double tan_theta = atan2(b,a-c)/2;
       double x = tan_theta-(3.14159/2);
       double max_theta = tan_theta + (3.141592/2);
-      cout << "Theta between iner and vertical axis: " << tan_theta << endl;
       double rho = -1*((x_center*sin(tan_theta))-(y_center*cos(tan_theta)));
-      cout << "Rho: " << rho << endl;
 
       //double cos_theta = acos(b,a-c)/2;
       //double sin_theta = asin(b,a-c)/2;
       
       double inertia = (a*pow(sin(tan_theta),2)) - (b*sin(tan_theta)*cos(tan_theta)) + (c*pow(cos(tan_theta),2));
-      cout << "Inertia " << inertia << endl;
 
       double max_inertia = (a*pow(sin(max_theta),2)) - (b*sin(max_theta)*cos(max_theta)) + (c*pow(cos(max_theta),2));
-      cout << "Max Inertia: " << max_inertia << endl;
 
       double roundness = inertia/max_inertia;
-      cout << "Roundness: " << roundness << endl;
 
       parameters_map[label][3] = rho;
       parameters_map[label][4] = inertia;
@@ -117,10 +112,8 @@ namespace Programs {
       double y1 = ((x1*sin(tan_theta))+rho)/cos(tan_theta);
       //double x1 = x_center + (200*sin(tan_theta));
       //double y1 = y_center + (200*cos(tan_theta));
-      cout << "Center    : {" << x_center << ", " << y_center << ")" << endl; 
-      cout << "New coords: (" << x1 << ", " << y1 << ")" <<  endl;
-      DrawLine(size_t(y_center),size_t(x_center),size_t(y1),size_t(x1),255,out_image);
-      cout << endl;
+      if(out_image != nullptr)
+        DrawLine(size_t(y_center),size_t(x_center),size_t(y1),size_t(x1),255,out_image);
     }
     //build vector to return
     vector<vector<double>> object_matrix;
@@ -132,7 +125,8 @@ namespace Programs {
       //return object_matrix;
     }
     string header = "label | x center | y center | rho | inertia | orientation | roundness\n";
-    fprintf(output, header.c_str());
+    if(output != 0)
+      fprintf(output, header.c_str());
     for(auto it = parameters_map.begin(); it != parameters_map.end(); it++) {
       string output_data = "";
       int label = it->first;
@@ -144,7 +138,6 @@ namespace Programs {
       double roundness = parameters_map[label][6];
       output_data = to_string(label) + " " + to_string(x_center) + " " + to_string(y_center) + " " + to_string(rho) + " ";
       output_data += to_string(inertia) + " " + to_string(theta) + " " + to_string(roundness) + "\n";
-      cout << output_data << endl;
       if(output != 0)
         fprintf(output, output_data.c_str());
       vector<double> data = {double(label), double(x_center), double(y_center), rho, inertia, theta, roundness};
