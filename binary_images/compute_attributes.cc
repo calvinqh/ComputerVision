@@ -13,8 +13,13 @@ using namespace std;
 namespace Programs {
  
   vector<vector<double>> ComputeAttributes(Image *label_image, string database, Image *out_image) {
+    out_image->AllocateSpaceAndSetSize(label_image->num_rows(), label_image->num_columns()); 
     out_image->SetNumberGrayLevels(label_image->num_gray_levels());
-    
+    for(size_t i = 0; i < label_image->num_rows(); i++) {
+      for(size_t j = 0; j < label_image->num_columns(); j++) {
+        out_image->SetPixel(i,j,label_image->GetPixel(i,j));
+      }
+    }
     //maps labels to a list [area, sum of x, sum of y]
     unordered_map<int, vector<double>> center_map;
 
@@ -83,8 +88,9 @@ namespace Programs {
       cout << "Label: " << label << endl;
       cout << "Params: " << a << ", " << b << ", " << c << endl;
       double tan_theta = atan2(b,a-c)/2;
+      double x = tan_theta-(3.14159/2);
       double max_theta = tan_theta + (3.141592/2);
-      cout << "Theta: " << tan_theta << endl;
+      cout << "Theta between iner and vertical axis: " << tan_theta << endl;
       double rho = -1*((x_center*sin(tan_theta))-(y_center*cos(tan_theta)));
       cout << "Rho: " << rho << endl;
 
@@ -100,9 +106,13 @@ namespace Programs {
       double roundness = inertia/max_inertia;
       cout << "Roundness: " << roundness << endl;
 
-      parameters_map[label][3] = inertia;
-      parameters_map[label][4] = tan_theta;
-      parameters_map[label][5] = roundness;
+      parameters_map[label][3] = rho;
+      parameters_map[label][4] = inertia;
+      if(tan_theta < 0)
+        parameters_map[label][5] = (-1*tan_theta) - (3.14159/2);
+      else
+        parameters_map[label][5] = (3.14159/2)-tan_theta;
+      parameters_map[label][6] = roundness;
       double x1 = x_center+100;
       double y1 = ((x1*sin(tan_theta))+rho)/cos(tan_theta);
       //double x1 = x_center + (200*sin(tan_theta));
@@ -121,22 +131,23 @@ namespace Programs {
       cout << "Can't read file";
       //return object_matrix;
     }
-    string header = "label | x center | y center | inertia | orientation | roundness\n";
+    string header = "label | x center | y center | rho | inertia | orientation | roundness\n";
     fprintf(output, header.c_str());
     for(auto it = parameters_map.begin(); it != parameters_map.end(); it++) {
       string output_data = "";
       int label = it->first;
-      int x_center = center_map[label][0];
-      int y_center = center_map[label][1];
-      double inertia = parameters_map[label][3];
-      double theta = parameters_map[label][4];
-      double roundness = parameters_map[label][5];
-      output_data = to_string(label) + " " + to_string(x_center) + " " + to_string(y_center) + " ";
+      int x_center = center_map[label][1];
+      int y_center = center_map[label][2];
+      double rho = parameters_map[label][3];
+      double inertia = parameters_map[label][4];
+      double theta = parameters_map[label][5];
+      double roundness = parameters_map[label][6];
+      output_data = to_string(label) + " " + to_string(x_center) + " " + to_string(y_center) + " " + to_string(rho) + " ";
       output_data += to_string(inertia) + " " + to_string(theta) + " " + to_string(roundness) + "\n";
       cout << output_data << endl;
       if(output != 0)
         fprintf(output, output_data.c_str());
-      vector<double> data = {label, x_center, y_center, inertia, theta, roundness};
+      vector<double> data = {double(label), double(x_center), double(y_center), rho, inertia, theta, roundness};
       object_matrix.push_back(data);
     }
     if(output!= 0) fclose(output);
