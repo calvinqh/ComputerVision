@@ -36,14 +36,28 @@ main(int argc, char **argv){
   CreateLabeledImage(&binary_image, &label_image);
   Image attribute_image;
   CreateLabeledImage(&binary_image, &attribute_image);
-  ComputeAttributes(&label_image, "file.txt", &attribute_image);
+  //ComputeAttributes(&label_image, "file.txt", &attribute_image);
+  
+  Image label_input_image;
+  Image binary_input_image;
+  Image result_image;
+
+  CreateBinaryImage(&an_image, &binary_input_image, threshold);
+  CreateLabeledImage(&binary_input_image, &label_input_image);
+  CreateLabeledImage(&binary_input_image, &result_image);
+  
+  ClassifyInstances(&label_input_image, "file.txt", &result_image);
   if (!WriteImage("binary_image.pgm", binary_image)) {
     cout << "Can't write to binary image file"  <<  endl;
   }
   if (!WriteImage("label_image.pgm", label_image)) { 
     cout << "Can't write to label image file"  <<  endl;
   } 
-  if (!WriteImage(output_file, attribute_image)){
+  if (!WriteImage("attribute_image.pgm", attribute_image)){
+    cout << "Can't write to file " << output_file << endl;
+    return 0;
+  }
+  if (!WriteImage(output_file, result_image)){
     cout << "Can't write to file " << output_file << endl;
     return 0;
   }
