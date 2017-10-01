@@ -4,6 +4,7 @@
 #include "image.h"
 #include <cstdlib>
 #include <string>
+#include <vector>
 
 using namespace ComputerVisionProjects;
 
@@ -12,7 +13,7 @@ namespace Programs {
   
   void CreateLabeledImage(Image *binary_image, Image *out_image);
 
-  void ComputeAttributes(Image *label_image, std::string database, Image *out_image);
+  std::vector<std::vector<double>> ComputeAttributes(Image *label_image, std::string database, Image *out_image);
 
   void ClassifyInstances(Image *input_image, std::string database, Image *out_image); 
 } //namespace Programs
