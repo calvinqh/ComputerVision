@@ -11,8 +11,8 @@
 using namespace std;
 
 namespace Programs {
-  
-  void ComputeAttributes(Image *label_image, string database, Image *out_image) {
+ 
+  vector<vector<double>> ComputeAttributes(Image *label_image, string database, Image *out_image) {
     out_image->SetNumberGrayLevels(label_image->num_gray_levels());
     
     //maps labels to a list [area, sum of x, sum of y]
@@ -112,12 +112,14 @@ namespace Programs {
       DrawLine(size_t(y_center),size_t(x_center),size_t(y1),size_t(x1),255,out_image);
       cout << endl;
     }
-    
+    //build vector to return
+    vector<vector<double>> object_matrix;
+
     //write information into text file
     FILE *output = fopen(database.c_str(), "w");
     if(output == 0) {
       cout << "Can't read file";
-      return ;
+      //return object_matrix;
     }
     string header = "label | x center | y center | inertia | orientation | roundness\n";
     fprintf(output, header.c_str());
@@ -132,8 +134,12 @@ namespace Programs {
       output_data = to_string(label) + " " + to_string(x_center) + " " + to_string(y_center) + " ";
       output_data += to_string(inertia) + " " + to_string(theta) + " " + to_string(roundness) + "\n";
       cout << output_data << endl;
-      fprintf(output, output_data.c_str());
+      if(output != 0)
+        fprintf(output, output_data.c_str());
+      vector<double> data = {label, x_center, y_center, inertia, theta, roundness};
+      object_matrix.push_back(data);
     }
-    fclose(output);
+    if(output!= 0) fclose(output);
+    return object_matrix;
   }
 }
