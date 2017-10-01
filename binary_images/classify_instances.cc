@@ -53,10 +53,11 @@ namespace Programs {
     
     //Compute Attributes for the current given image
     Image out_t;
-    instance_matrix = ComputeAttributes(input_image, "sss", &out_t);
+    instance_matrix = ComputeAttributes(input_image, "", nullptr);
     cout << "Making Comparisons ..." << endl;
     //recognized, marks which objects have been classified
     vector<bool> recognized;
+    double error_threshold = .2;
     for(size_t i = 0; i < instance_matrix.size(); i++) {
       //compare to all database instances
       //min_percent_diff set to n*1.0. 
@@ -70,7 +71,7 @@ namespace Programs {
           double data_attr = database_matrix[j][k];
           double difference = instance_attr-data_attr;
           double percent_diff = abs(difference/data_attr);
-          if(percent_diff < 1.3) {
+          if(percent_diff < error_threshold) {
             total_percent_diff += percent_diff;
           }
           else {
@@ -78,13 +79,15 @@ namespace Programs {
             k = database_matrix[0].size();
           }
         }
-        if (total_percent_diff < min_percent_diff) {
+        //check for non-zero b/c test may fail early b/c one attribute has too large of a difference (difference default =0)
+        if (total_percent_diff < min_percent_diff && total_percent_diff != 0) {
           min_percent_diff = total_percent_diff;
         }
       }
-      cout << endl << i << ": " << min_percent_diff;
       double avg_min_diff = min_percent_diff/(database_matrix[0].size()-4);
-      bool res = (avg_min_diff < 1.3) && (avg_min_diff != 0);
+      cout << avg_min_diff << endl;
+      //check for non-zero b/c comparison test may fail early b/c one atttribute too large of difference(difference default =0)
+      bool res = (avg_min_diff < error_threshold) && (avg_min_diff != 0);
       recognized.push_back(res);
     }
     cout << "Classifying ..." << endl;
@@ -101,10 +104,9 @@ namespace Programs {
           theta = (3.14159/2) - theta;
         double x1 = x_center + 100;
         double y1 = ((x1*sin(theta))+rho)/cos(theta);
-        cout << x_center << ", " << y_center << endl;
-        cout << x1 << ", " << y1 << endl;
         DrawLine(size_t(y_center), size_t(x_center), size_t(y1), size_t(x1), 255, out_image);
       }
     }
+    cout << "Classifcation Complete!" << endl;
   }
 }
