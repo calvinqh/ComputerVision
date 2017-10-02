@@ -104,6 +104,12 @@ namespace Programs {
         double x1 = x_center + 100;
         double y1 = ((x1*sin(theta))+rho)/cos(theta);
         DrawLine(size_t(y_center), size_t(x_center), size_t(y1), size_t(x1), 255, out_image);
+        out_image->SetPixel(y_center, x_center, 255);
+        for(int i = -1; i <= 1; i++) {
+          for(int j = -1; j <= 1; j++) {
+            out_image->SetPixel(y_center+i,x_center+j,255);
+          }
+        }
       }
     }
     cout << "Classifcation Complete!" << endl;
