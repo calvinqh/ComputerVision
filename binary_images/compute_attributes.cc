@@ -48,11 +48,6 @@ namespace Programs {
     for(auto it = center_map.begin(); it != center_map.end(); ++it) {
       center_map[it->first][1] /= center_map[it->first][0];
       center_map[it->first][2] /= center_map[it->first][0];
-      cout << "Label: " << it->first << endl;
-      cout << "Area: " << center_map[it->first][0] << endl;
-      cout << "X: " << center_map[it->first][1] << endl;  
-      cout << "Y: " << center_map[it->first][2] << endl;  
-      cout << "----------------" << endl;
     }
     //maps labels to their a,b,c paramets
     //[a,b,c,theta,roundness]
@@ -120,8 +115,8 @@ namespace Programs {
 
     //write information into text file
     FILE *output = fopen(database.c_str(), "w");
-    if(output == 0) {
-      cout << "Can't read file";
+    if(output == 0 && database.compare("") != 0) {
+      cout << "Can't read file" << endl;
       //return object_matrix;
     }
     string header = "label | x center | y center | rho | inertia | orientation | roundness\n";
