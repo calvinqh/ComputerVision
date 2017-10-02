@@ -63,3 +63,14 @@ Will calculate: center coordinates of each object, the minimum moment of inertia
 Classifies objects in the given image by making comparisons to the database. Comparisons are done by checking the percent difference between attributes. Output image shows the center and orientation of all objects identified.
 
 -----------
+
+General Notes:
+----------
+
+The chosen threshold is 134. Because it most closely matches the sample output file given.
+The threshold 110 works just as well because when creating the binary image, it ignores the noise near the bottom right of the image.
+Any thing less would've picked up some noise.
+
+
+The classification correctly identifies the two objects, but gives a false positive for one object.
+
