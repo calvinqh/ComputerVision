@@ -85,7 +85,6 @@ namespace Programs {
         }
       }
       double avg_min_diff = min_percent_diff/(database_matrix[0].size()-4);
-      cout << avg_min_diff << endl;
       //check for non-zero b/c comparison test may fail early b/c one atttribute too large of difference(difference default =0)
       bool res = (avg_min_diff < error_threshold) && (avg_min_diff != 0);
       recognized.push_back(res);
