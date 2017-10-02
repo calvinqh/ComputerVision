@@ -107,8 +107,15 @@ namespace Programs {
       double y1 = ((x1*sin(tan_theta))+rho)/cos(tan_theta);
       //double x1 = x_center + (200*sin(tan_theta));
       //double y1 = y_center + (200*cos(tan_theta));
-      if(out_image != nullptr)
-        DrawLine(size_t(y_center),size_t(x_center),size_t(y1),size_t(x1),255,out_image);
+      if(out_image != nullptr) {
+        DrawLine(size_t(y_center),size_t(x_center),size_t(y1),size_t(x1),100,out_image);
+        out_image->SetPixel(y_center, x_center, 255);
+        for(int i = -1; i <= 1; i++) {
+          for(int j = -1; j <= 1; j++) {
+            out_image->SetPixel(y_center+i,x_center+j,255);
+          }
+        }
+      }
     }
     //build vector to return
     vector<vector<double>> object_matrix;
