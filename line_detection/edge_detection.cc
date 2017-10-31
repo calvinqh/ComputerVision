@@ -25,8 +25,8 @@ namespace Programs {
             accumulator+=(an_image->GetPixelSafe(i+c,j+r)*mask->GetPixel(1+r,c+1));
           }
         }
-        out_image->SetPixel(i,j,accumulator);
         cout << accumulator << " ";
+        //out_image->SetPixel(i,j,accumulator);
       }
     }
   }
