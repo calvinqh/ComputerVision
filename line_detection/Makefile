@@ -29,11 +29,11 @@ LIBS_ALL =  -L/usr/lib -L/usr/local/lib
 
 
 #First Program (ListTest)
-Cpp_OBJ = image.o image_demo.o hough_lines.o edge_detection.o
-Cpp_OBJ_1 = image.o image_demo.o hough_lines.o edge_detection.o h1.o
-Cpp_OBJ_2 = image.o image_demo.o hough_lines.o edge_detection.o h2.o
-Cpp_OBJ_3 = image.o image_demo.o hough_lines.o edge_detection.o h3.o
-Cpp_OBJ_4 = image.o image_demo.o hough_lines.o edge_detection.o h4.o
+Cpp_OBJ = image.o hough_lines.o edge_detection.o
+Cpp_OBJ_1 = image.o hough_lines.o edge_detection.o h1.o
+Cpp_OBJ_2 = image.o hough_lines.o edge_detection.o h2.o
+Cpp_OBJ_3 = image.o hough_lines.o edge_detection.o h3.o
+Cpp_OBJ_4 = image.o hough_lines.o edge_detection.o h4.o
 
 PROGRAM_1 = h_1
 $(PROGRAM_1): $(Cpp_OBJ_1)
