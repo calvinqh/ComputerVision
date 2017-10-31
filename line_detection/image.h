@@ -54,6 +54,11 @@ class Image {
     return pixels_[i][j];
   }
 
+  int GetPixelSafe(size_t i, size_t j) const {
+    if (i >= num_rows_ || j >= num_columns_ || i < 0 || j < 0) abort();
+    return pixels_[i][j];
+  }
+
  private:
   void DeallocateSpace();
 
