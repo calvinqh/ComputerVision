@@ -134,14 +134,13 @@ bool WriteImage(const string &filename, const Image &an_image) {
 // "Computer Graphics. Principles and practice", 
 // 2nd ed., 1990, section 3.2.2);  
 void
-DrawLine(int x0, int y0, int x1, int y1, int color,
-	 Image *an_image) {  
+DrawLine(int x0, int y0, int x1, int y1, int color, Image *an_image) {  
   if (an_image == nullptr) abort();
 
-#ifdef SWAP
-#undef SWAP
-#endif
-#define SWAP(a,b) {a^=b; b^=a; a^=b;}
+  #ifdef SWAP
+  #undef SWAP
+  #endif
+  #define SWAP(a,b) {a^=b; b^=a; a^=b;}
 
   const int DIR_X = 0;
   const int DIR_Y = 1;

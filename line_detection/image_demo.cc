@@ -25,10 +25,6 @@ main(int argc, char **argv){
     return 0;
   }
 
-  // Draw a line from (0, 0) to (100, 240) having gray-value
-  // 200.
-  DrawLine(0, 0, 100, 240, 200,
-	   &an_image); 
   
   if (!WriteImage(output_file, an_image)){
     cout << "Can't write to file " << output_file << endl;
