@@ -12,6 +12,11 @@ using namespace ComputerVisionProjects;
 
 namespace Programs {
 
+  struct LineParameter {
+    size_t theta;
+    size_t rho;
+  }
+
   //Performs convolution with the given mask onto an_image. The result is saved into out_image
   //@param mask: a mxm mask that will be applied to an_image
   //@param an_image: the image the mask will be applied to
