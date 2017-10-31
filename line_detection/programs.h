@@ -15,7 +15,7 @@ namespace Programs {
   struct LineParameter {
     size_t theta;
     size_t rho;
-  }
+  };
 
   //Performs convolution with the given mask onto an_image. The result is saved into out_image
   //@param mask: a mxm mask that will be applied to an_image
@@ -33,7 +33,7 @@ namespace Programs {
   //@param edge_image: the edge strength image that the result is based off
   //@param threshold: gray level value that determines if pixel is an edge or not
   //@param out_image: the applied threshold image for edge image, results in a binary edge image
-  void CleanEdgeImage(Image* edge_image, int threshold Image* out_image);
+  void CleanEdgeImage(Image* edge_image, int threshold, Image* out_image);
   
 
   //Creates the line hough space for the edge "strength" image provided
