@@ -65,7 +65,7 @@ namespace Programs {
     }
 
     //perform convolution on the input image and store it into the output image
-    convolve(&mask, an_image, strength_image);
+    convolve(&maskX, an_image, strength_image);
     cout << "Edge Strength Image Created." << endl;
   }
 
