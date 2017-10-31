@@ -15,7 +15,7 @@ namespace Programs {
   vector<vector<int>> GenerateHoughSpace(Image* edge_image, Image* out_image) {
     vector<vector<int>> voting_array;
     out_image->AllocateSpaceAndSetSize(edge_image->num_rows(), edge_image->num_columns());
-    out_image->SetNumberGrayLevels(edge_image->GetNumberGrayLevels());
+    out_image->SetNumberGrayLevels(edge_image->num_gray_levels());
 
     //M is the dimension of X
     //N is the dimension of Y
@@ -31,7 +31,7 @@ namespace Programs {
 
   void LineDetection(Image* original_image, vector<vector<int>> voting_array, int threshold, Image* out_image) {
     out_image->AllocateSpaceAndSetSize(original_image->num_rows(), original_image->num_columns());
-    out_image->SetNumberGrayLevels(original_image->GetNumberGrayLevels());
+    out_image->SetNumberGrayLevels(original_image->num_gray_levels());
 
     vector<LineParameter> lines;
   	for(int i = 0; i < voting_array.size(); i++) {
