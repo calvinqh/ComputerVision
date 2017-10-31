@@ -26,7 +26,8 @@ namespace Programs {
           }
         }
         cout << accumulator << " ";
-        //out_image->SetPixel(i,j,accumulator);
+        cout << size_t(sqrt(accumulator)) << endl;
+        out_image->SetPixel(i,j,accumulator);
       }
     }
   }
@@ -42,13 +43,13 @@ namespace Programs {
     //The mask values put into a 1D array (the length must match with mask_r * mask_c)
     //TODO: make sure the mask is flipped!
     vector<int> mask_array_X = 
-    {0,0,0,
-      1,1,1,
-      2,2,2 };
+    {1,0,1,
+      2,0,2,
+      1,0,1 };
     vector<int> mask_array_Y = 
-    {0,0,0,
-      1,1,1,
-      2,2,2};
+    {1,2,1,
+      0,0,0,
+      1,2,1};
     maskX.AllocateSpaceAndSetSize(mask_r,mask_c);
     maskX.SetNumberGrayLevels(an_image->num_gray_levels());
     maskY.AllocateSpaceAndSetSize(mask_r,mask_c);
@@ -65,7 +66,7 @@ namespace Programs {
     }
 
     //perform convolution on the input image and store it into the output image
-    convolve(&maskX, an_image, strength_image);
+    convolve(&maskY, an_image, strength_image);
     cout << "Edge Strength Image Created." << endl;
   }
 
