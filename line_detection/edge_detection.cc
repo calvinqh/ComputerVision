@@ -50,9 +50,9 @@ namespace Programs {
       1,1,1,
       2,2,2 ];
     maskX.AllocateSpaceAndSetSize(mask_r,mask_c);
-    maskX.SetNumberGrayLevels(an_image->GetNumberGrayLevels());
+    maskX.SetNumberGrayLevels(an_image->num_gray_levels());
     maskY.AllocateSpaceAndSetSize(mask_r,mask_c);
-    maskY.SetNumberGrayLevels(an_image->GetNumberGrayLevels());
+    maskY.SetNumberGrayLevels(an_image->num_gray_levels());
     int counter = 0;
     for(int i = 0; i < 3; i++) {
       for(int j = 0; j < 3; j++) {
@@ -73,7 +73,7 @@ namespace Programs {
   void CleanEdgeImage(Image* edge_image, int threshold, Image* out_image) {
     cout << "Thresholding Edge Strength Image." << endl;
     out_image->AllocateSpaceAndSetSize(edge_image->num_rows(), edge_image->num_columns());
-    out_image->SetNumberGrayLevels(edge_image->GetNumberGrayLevels());
+    out_image->SetNumberGrayLevels(edge_image->num_gray_levels());
     for(int i = 0; i < edge_image->num_rows(); i++) {
       for(int j = 0; j < edge_image->num_columns(); j++) {
         int value = edge_image->GetPixel(i,j);
