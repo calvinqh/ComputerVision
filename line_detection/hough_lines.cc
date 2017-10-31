@@ -17,6 +17,15 @@ namespace Programs {
     out_image->AllocateSpaceAndSetSize(edge_image->num_rows(), edge_image->num_columns());
     out_image->SetNumberGrayLevels(edge_image->GetNumberGrayLevels());
 
+    //M is the dimension of X
+    //N is the dimension of Y
+    size_t M = edge_image->num_columns();
+    size_t N = edge_image->num_rows();
+    size_t theta_size = sqrt(double(M*M + N*N));
+    size_t rho = 1;
+    size_t theta_step = .5;
+    size_t rho_step = .01;
+
     return voting_array;
   }
 
