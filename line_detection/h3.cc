@@ -34,7 +34,7 @@ main(int argc, char **argv) {
   	return 0;
   }
 
-  vector<vector<int>> voting_array = GenerateHoughSpace(binary_edge_image, hough_space);
+  vector<vector<int>> voting_array = GenerateHoughSpace(&binary_edge_image, &hough_space);
 
   if (!WriteImage(output_file, hough_space)) {
     cout << "Can't write to " << output_file << endl;

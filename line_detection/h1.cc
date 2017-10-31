@@ -31,7 +31,7 @@ main(int argc, char **argv) {
   	return 0;
   }
 
-  GenerateEdgeStrengthImage(an_image, edge_image);
+  GenerateEdgeStrengthImage(&an_image, &edge_image);
 
   if (!WriteImage(output_file, edge_image)) {
     cout << "Can't write to " << output_file << endl;

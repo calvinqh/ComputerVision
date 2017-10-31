@@ -34,7 +34,7 @@ main(int argc, char **argv) {
   	return 0;
   }
 
-  LineDetection(original_image, voting_array, threshold, output_image);
+  LineDetection(&original_image, voting_array, threshold, &output_image);
 
   if (!WriteImage(output_file, output_image)) {
     cout << "Can't write to " << output_file << endl;
