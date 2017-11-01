@@ -65,4 +65,16 @@ h4:
 clean:
 	(rm -f *.o;)
 
+r1:
+	./h_1 hough_simple_2.pgm str_1.pgm
+
+r2:
+	./h_2 str_1.pgm 220 str_2.pgm
+
+r3:
+	./h_3 str_2.pgm hough.pgm data.txt 
+
+r4:
+	./h_4 hough_simple_2.pgm data.txt 200 line.pgm
+
 (:
