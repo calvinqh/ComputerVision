@@ -40,5 +40,18 @@ main(int argc, char **argv) {
     cout << "Can't write to " << output_file << endl;
   }
   //TODO: save voting array
-
+  FILE* output = fopen(voting_data.c_str(), "w");
+  if(output==0 && voting_data.compare("") != 0) {
+    cout << "Can't open voting file" << endl;
+  }
+  for(int i = 0; i < voting_array.size(); i++) {
+    string line = "";
+    int j = 0;
+    for(; j < voting_array[0].size()-1; j++) {
+      line += to_string(voting_array[i][j]) + " ";
+    }
+    line += to_string(voting_array[i][j]) + "\n";
+    fprintf(output,line.c_str());
+  }
+  if(output!=0) fclose(output);
 }
