@@ -12,22 +12,56 @@ using namespace std;
 
 namespace Programs {
 
-  void convolve(Image* mask, Image* an_image, Image* out_image){
-    cout << "Performing convolution" << endl;
-    out_image->AllocateSpaceAndSetSize(an_image->num_rows(),an_image->num_columns());
+  void smooth(Image* an_image, Image* out_image) {
+    cout << "Applying Gaussian Smoothing" << endl;
+    out_image->AllocateSpaceAndSetSize(an_image->num_rows(), an_image->num_columns());
     out_image->SetNumberGrayLevels(an_image->num_gray_levels());
+    vector<vector<int>> kernel;
+    vector<int> kernel_vals = {
+      1,2,1,
+      2,12,2,
+      1,2,1
+    };
+    int count = 0;
+    for(int i = 0; i < 3; i++) {
+      vector<int> t;
+      for(int j = 0; j < 3; j++) {
+        t.push_back(kernel_vals[count]);
+      }
+      kernel.push_back(t);
+    }
+
+    //convolve the kernel to the image
     for(int i = 0; i < an_image->num_rows(); i++) {
       for(int j = 0; j < an_image->num_columns(); j++) {
         int accumulator = 0;
         //the neighbors
         for(int r = -1; r <= 1; r++) {
           for(int c = -1; c <= 1; c++) {
-            accumulator+=(an_image->GetPixelSafe(i+c,j+r)*mask->GetPixel(1+r,c+1));
+            accumulator+=(an_image->GetPixelSafe(i+c,j+r)*kernel[1+r][c+1]);
           }
         }
-        cout << accumulator << " ";
-        cout << size_t(sqrt(accumulator)) << endl;
+        accumulator /= 24;
         out_image->SetPixel(i,j,accumulator);
+      }
+    }
+  }
+  void convolve(Image* mask1, Image* mask2, Image* an_image, Image* out_image){
+    cout << "Performing convolution" << endl;
+    out_image->AllocateSpaceAndSetSize(an_image->num_rows(),an_image->num_columns());
+    out_image->SetNumberGrayLevels(an_image->num_gray_levels());
+    for(int i = 0; i < an_image->num_rows(); i++) {
+      for(int j = 0; j < an_image->num_columns(); j++) {
+        int accumulator1 = 0, accumulator2 = 0;
+        //the neighbors
+        for(int r = -1; r <= 1; r++) {
+          for(int c = -1; c <= 1; c++) {
+            accumulator1+=(an_image->GetPixelSafe(i+c,j+r)*mask1->GetPixel(1+r,c+1));
+            accumulator2+=(an_image->GetPixelSafe(i+c,j+r)*mask2->GetPixel(1+r,c+1));
+          }
+        }
+        double strength = sqrt(pow(accumulator1,2) + pow(accumulator2,2));
+        out_image->SetPixel(i,j,int(strength));
       }
     }
   }
@@ -64,9 +98,12 @@ namespace Programs {
       }
       cout << endl;
     }
+    //smooth picture
+    Image smooth_picture;
+    smooth(an_image, &smooth_picture);
 
     //perform convolution on the input image and store it into the output image
-    convolve(&maskY, an_image, strength_image);
+    convolve(&maskX, &maskY, &smooth_picture, strength_image);
     cout << "Edge Strength Image Created." << endl;
   }
 
