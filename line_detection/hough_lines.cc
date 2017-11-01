@@ -19,8 +19,8 @@ namespace Programs {
     size_t N = edge_image->num_rows();
     double rho_size = sqrt(double(M*M + N*N));
     double theta_size = 1;
-    double rho_step = 2;
-    double theta_step = .004;
+    double rho_step = .5;
+    double theta_step = .0005;
     size_t theta_dimension = size_t(theta_size/theta_step);
     size_t rho_dimension = size_t(rho_size/rho_step);
     out_image->AllocateSpaceAndSetSize(theta_dimension, rho_dimension);
@@ -47,7 +47,7 @@ namespace Programs {
           //index j: where j*rho_step is closest to rho calculated
           int j = int(temp_rho/rho_step);
           int curr_val = out_image->GetPixel(i,j);
-          if(j < theta_dimension) {
+          if(j < rho_dimension) {
             out_image->SetPixel(i,j,curr_val+1);
             voting_array[i][j]++;
           }
@@ -62,8 +62,8 @@ namespace Programs {
     out_image->SetNumberGrayLevels(original_image->num_gray_levels());
     cout << "Detecting Lines.." << endl;
     vector<LineParameter> lines;
-    double theta_step = .004;
-    double rho_step = 2;
+    double theta_step = .0005;
+    double rho_step = .5;
     cout << voting_array.size() << " " << voting_array[0].size() << endl;
   	for(int i = 0; i < voting_array.size(); i++) {
       for(int j = 0; j < voting_array[0].size(); j++) {
@@ -78,18 +78,27 @@ namespace Programs {
           x0 = 0;
           y0 = (x0*sin(line.theta)+line.rho)/cos(line.theta);
           double x1,y1;
-          x1 = x0 + 100;
+          x1 = x0 + 500;
           y1 = (x1*sin(line.theta)+line.rho)/cos(line.theta);
           //cout << "(" << x0 << ", " << y0 << ")" << endl;
           //cout << "(" << x1 << ", " << y1 << ")" << endl; 
-          cout << line.theta << " " << line.rho << endl;
+          //cout << line.theta << " " << line.rho << endl;
           size_t x2 = size_t(x0);
           size_t y2 = size_t(y0);
           size_t x3 = size_t(x1);
           size_t y3 = size_t(y1);
-          if(y3 > 640 || y2 > 640)
+          if(line.theta > .4) {
+            cout << "(" << x2 << ", " << y2 << ")" << endl;
+            cout << "(" << x3 << ", " << y3 << ")" << endl;
+            //solve for rho instead
+          }
+          if(x3 > 640 || x2 > 640 || y3 > 479 || y2 > 479) {
             cout << "----" << endl;
-          //DrawLine(y2,x2,y3,x3,100,out_image);
+          } 
+          else {
+            
+            DrawLine(y2,x2,y3,x3,100,out_image);
+          }
         }
       }
   	}
