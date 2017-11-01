@@ -8,7 +8,7 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
-
+#include <fstream>
 using namespace std;
 using namespace ComputerVisionProjects;
 using namespace Programs;
@@ -27,6 +27,24 @@ main(int argc, char **argv) {
 
   Image original_image;
   vector<vector<int>> voting_array; //TODO
+  ifstream file(voting_data);
+  string str;
+  //getline(file,str); //str contains the rho step, theta step, rho dimension and theta dimension
+
+  int start = 0;
+  while(getline(file,str)){
+    vector<int> data_line;
+    for(int i = 0; i < str.length(); i++) {
+      if(str[i] == ' ') {
+        string data = str.substr(start,i);
+        start = i+1;
+        data_line.push_back(stoi(data));
+      }
+    }
+    voting_array.push_back(data_line);
+    start = 0;
+  }
+  cout << "Voting Array has been read." << endl;
   Image output_image;
 
   if (!ReadImage(original_file, &original_image)) {
