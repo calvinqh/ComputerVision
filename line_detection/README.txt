@@ -22,6 +22,8 @@ programs.h : Contains the contracts of all functions used in this assignment. Al
 			LineDetection(original_image, voting_array, threshold, out_image)
 
 			convolve(mask1, mask2, an_image, out_image)
+			smooth(image, smoothed_image)
+			copy(image, copied_image)
 
 edge_detection.cc : Contains the implementation of
 					GenerateEdgeStrenth()
