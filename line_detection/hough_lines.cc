@@ -133,7 +133,33 @@ namespace Programs {
   	}
 
     //For each line that satified the threshold, draw the line onto the output image
-    
+    /*
+    for(int i = 0; i < lines.size(); i++) {
+      cout << "(theta, rho): (" << lines[i].theta << ", " << lines[i].rho << ")" <<end;
+      int x0 = 0;
+      int x1 = x0 + original_image->num_columns()-1;
+      
+      int y0 = original_image->num_rows() + 1;
+      int y1 = 0;
+
+      if(lines[0].theta > .4) {
+        //solve for x0 and x1 instead
+        x0 = (line.rho-y0*cos(line.theta))/sin(line.theta);
+        x1 = (line.rho-y1*cos(line.theta))/sin(line.theta);
+      }
+      else {
+        y0 = (x0*sin(line.theta)+line.rho)/cos(line.theta);
+        y1 = (x1*sin(line.theta)+line.rho)/cos(line.theta);
+      }
+      size_t x_0 = size_t(x0);
+      size_t x_1 = size_t(x1);
+      size_t y_0 = size_t(y0);
+      size_t y_1 = size_t(y1);
+
+      DrawLine(y_0,x_0,y_1,x_1,100,out_image);
+
+    }
+    */
 
     cout << "Lines Detected." << endl;
   }
