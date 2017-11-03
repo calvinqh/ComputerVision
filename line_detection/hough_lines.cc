@@ -13,6 +13,8 @@ using namespace std;
 namespace Programs {
 
   vector<vector<int>> GenerateHoughSpace(Image* edge_image, Image* out_image) {
+
+    //Create the hough space for the image and voting array
     //M is the dimension of X
     //N is the dimension of Y
     size_t M = edge_image->num_columns();
@@ -35,11 +37,15 @@ namespace Programs {
     cout << "Theta: " << theta_dimension << endl;
     cout << "Rho: " << rho_dimension << endl;
     out_image->SetNumberGrayLevels(edge_image->num_gray_levels());
+
+
+    //Apply hough algorithm for each edge
     for(int r = 0; r < edge_image->num_rows(); r++) {
       for(int c = 0; c < edge_image->num_columns(); c++) {
         size_t value = edge_image->GetPixel(r,c);
         if(value == 0) 
           continue;
+        //vote for all theta 1 to pi
         for(int i = 1; i < theta_dimension; i++) {
           double temp_theta = theta_step * i;
           double temp_rho = (c * sin(temp_theta)) + (r * cos(temp_theta));
@@ -68,11 +74,13 @@ namespace Programs {
       }
     }
 
+
     cout << "Detecting Lines.." << endl;
     vector<LineParameter> lines;
-    double theta_step = .001;
+    double theta_step = (2.0/360);
     double rho_step = .5;
     cout << voting_array.size() << " " << voting_array[0].size() << endl;
+    //For all points in the hough space, find the pair (theta, rho) where the votes is >= threshold
   	for(int i = 0; i < voting_array.size(); i++) {
       for(int j = 0; j < voting_array[0].size(); j++) {
         if(voting_array[i][j] >= threshold) {
@@ -123,6 +131,10 @@ namespace Programs {
         }
       }
   	}
+
+    //For each line that satified the threshold, draw the line onto the output image
+    
+
     cout << "Lines Detected." << endl;
   }
 
