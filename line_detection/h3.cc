@@ -39,7 +39,8 @@ main(int argc, char **argv) {
   if (!WriteImage(output_file, hough_space)) {
     cout << "Can't write to " << output_file << endl;
   }
-  //TODO: save voting array
+
+  //saving the hough space into database file
   FILE* output = fopen(voting_data.c_str(), "w");
   if(output==0 && voting_data.compare("") != 0) {
     cout << "Can't open voting file" << endl;
