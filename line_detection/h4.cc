@@ -31,6 +31,7 @@ main(int argc, char **argv) {
   string str;
   //getline(file,str); //str contains the rho step, theta step, rho dimension and theta dimension
 
+  //parse the hough voting space into a 2d vector
   int start = 0;
   while(getline(file,str)){
     vector<int> data_line;
