@@ -17,6 +17,16 @@ namespace Programs {
     double rho;
   };
 
+  //COpys the pixel values from image1 to image2
+  //@param image1: the image to be copied
+  //@param image2: the copied image is saved
+  void copy(Image* image1, Image* image2);
+
+  //Smooths the given image with Gaussian Filter
+  //@param an_image: the image that will be smoothed
+  //@param out_image: where the smoothed image is saved
+  void smooth(Image* an_image, Image* out_image);
+
   //Performs convolution with the given mask onto an_image. The result is saved into out_image
   //@param mask: a mxm mask that will be applied to an_image
   //@param an_image: the image the mask will be applied to
