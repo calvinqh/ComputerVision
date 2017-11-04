@@ -43,35 +43,30 @@ To compile in Linux:
 
    or
 
-   make h_1
-   make h_2
-   make h_3
-   make h_4
+   make h1
+   make h2
+   make h3
+   make h4
 
 To run:
 ---------
 
-./image_demo objects.pgm output.pgm
-
-This will open image objects.pgm, will draw a line on the image, and will save resulting image to file output.pgm
-
-
-./h_1 {input original_image} {output edge_strength_image}
+./h1 {input original_image} {output edge_strength_image}
 
 Will read the gray level image and output an edge strength image.
 
 
-./h_2 {input edge_strength_image} {input edge_threshold} {output binary_edge_image}
+./h2 {input edge_strength_image} {input edge_threshold} {output binary_edge_image}
 
 Will output an edge image that filters out the edge strength image with the given threshold
 
 
-./h_3 {input binary_edge_image} {output hough_space_image} {output hough_space_database(txt)}
+./h3 {input binary_edge_image} {output hough_space_image} {output hough_space_database(txt)}
 
 With the given binary edge image, it will output an image and database that using hough transform to vote for lines
 
 
-./h_4 {input original_image} {input hough_space_database} {input line_threshold} {output original_image_with_lines}
+./h4 {input original_image} {input hough_space_database} {input line_threshold} {output original_image_with_lines}
 
 With the given hough space database, it will produce a new image of the original image with lines drawn. The lines are chosen from the parameters of the hough space based off the threshold given.
 
@@ -80,6 +75,10 @@ General Notes:
 -----------
 
 The threshold chosen for h2 is 20. 
-The threhsold chosen for h4 is 200.
+The threhsold chosen for h4 is 160.
 
 The lines produced for this assignment are very thick. 
+The program has trouble looking for vertical lines.
+I believe that my problem is that my rho space does not represent negative rho.
+
+The program correctly draw lines for hough_simple_2 but not for hough_simple_1 and complex.
