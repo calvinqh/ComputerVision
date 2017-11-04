@@ -81,7 +81,6 @@ namespace Programs {
 
 
     cout << "Detecting Lines.." << endl;
-    vector<LineParameter> lines;
     double theta_step = (2.0/360);
     double rho_step = .5;
     cout << voting_array.size() << " " << voting_array[0].size() << endl;
@@ -92,18 +91,14 @@ namespace Programs {
           //We found the theata and rho for a line
           //draw line onto out_image  
           LineParameter line;
-          //double temp_rho = j - rho_size; //correct the rho value
           line.theta = ((i+1)*theta_step);
           line.rho = ((j+1)*rho_step);
-          lines.push_back(line);
           double x0,y0;
           x0 = 0;
           y0 = (x0*sin(line.theta)+line.rho)/cos(line.theta);
           double x1,y1;
           x1 = original_image->num_columns()-1;
           y1 = (x1*sin(line.theta)+line.rho)/cos(line.theta);
-          //cout << "(" << x0 << ", " << y0 << ")" << endl;
-          //cout << "(" << x1 << ", " << y1 << ")" << endl; 
           if(line.theta >= .4) {
             //solve for rho instead
             y0 = original_image->num_rows() - 1;
@@ -119,36 +114,6 @@ namespace Programs {
         }
       }
   	}
-
-    //For each line that satified the threshold, draw the line onto the output image
-    /*
-    for(int i = 0; i < lines.size(); i++) {
-      cout << "(theta, rho): (" << lines[i].theta << ", " << lines[i].rho << ")" <<end;
-      int x0 = 0;
-      int x1 = x0 + original_image->num_columns()-1;
-      
-      int y0 = original_image->num_rows() + 1;
-      int y1 = 0;
-
-      if(lines[0].theta > .4) {
-        //solve for x0 and x1 instead
-        x0 = (line.rho-y0*cos(line.theta))/sin(line.theta);
-        x1 = (line.rho-y1*cos(line.theta))/sin(line.theta);
-      }
-      else {
-        y0 = (x0*sin(line.theta)+line.rho)/cos(line.theta);
-        y1 = (x1*sin(line.theta)+line.rho)/cos(line.theta);
-      }
-      size_t x_0 = size_t(x0);
-      size_t x_1 = size_t(x1);
-      size_t y_0 = size_t(y0);
-      size_t y_1 = size_t(y1);
-
-      DrawLine(y_0,x_0,y_1,x_1,100,out_image);
-
-    }
-    */
-
     cout << "Lines Detected." << endl;
   }
 
