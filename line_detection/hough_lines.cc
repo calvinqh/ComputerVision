@@ -52,9 +52,9 @@ namespace Programs {
           //index j: where j*rho_step is closest to rho calculated
           //int j = 0;
           int j = int(temp_rho/rho_step);
-          cout << j << endl;
-          int curr_val = out_image->GetPixel(i,j);
+          //cout << j << endl;
           if(j < rho_dimension) {
+            int curr_val = out_image->GetPixel(i,j);
             out_image->SetPixel(i,j,curr_val+1);
             voting_array[i][j]++;
           }
@@ -67,6 +67,11 @@ namespace Programs {
   void LineDetection(Image* original_image, vector<vector<int>> voting_array, int threshold, Image* out_image) {
     out_image->AllocateSpaceAndSetSize(original_image->num_rows(), original_image->num_columns());
     out_image->SetNumberGrayLevels(original_image->num_gray_levels());
+    
+    size_t M = original_image->num_columns();
+    size_t N = original_image->num_rows();
+    double rho_size = sqrt(double(M*M + N*N));
+
     //copying the image
     for(int i = 0; i < original_image->num_rows(); i++) {
       for(int j = 0; j < original_image->num_columns(); j++) {
@@ -87,6 +92,7 @@ namespace Programs {
           //We found the theata and rho for a line
           //draw line onto out_image  
           LineParameter line;
+          //double temp_rho = j - rho_size; //correct the rho value
           line.theta = ((i+1)*theta_step);
           line.rho = ((j+1)*rho_step);
           lines.push_back(line);
@@ -94,14 +100,14 @@ namespace Programs {
           x0 = 0;
           y0 = (x0*sin(line.theta)+line.rho)/cos(line.theta);
           double x1,y1;
-          x1 = x0 + 200;
+          x1 = original_image->num_columns()-1;
           y1 = (x1*sin(line.theta)+line.rho)/cos(line.theta);
           //cout << "(" << x0 << ", " << y0 << ")" << endl;
           //cout << "(" << x1 << ", " << y1 << ")" << endl; 
           if(line.theta >= .4) {
             //solve for rho instead
-            y0 = original_image->num_rows() - 100;
-            y1 = y0 - 200;
+            y0 = original_image->num_rows() - 1;
+            y1 = 0;
             x0 = (line.rho-y0*cos(line.theta))/sin(line.theta);
             x1 = (line.rho-y1*cos(line.theta))/sin(line.theta);
           }
