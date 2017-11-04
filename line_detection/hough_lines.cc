@@ -115,25 +115,7 @@ namespace Programs {
           size_t y2 = size_t(y0);
           size_t x3 = size_t(x1);
           size_t y3 = size_t(y1);
-          if(line.theta >= .4) {
-            cout << "Vertical!" << line.theta << " " << line.rho << endl;
-            cout << "(" << x0 << ", " << y0 << ")" << endl;
-            cout << "(" << x2 << ", " << y2 << ")" << endl;
-            cout << "(" << x1 << ", " << y1 << ")" << endl;
-            cout << "(" << x3 << ", " << y3 << ")" << endl; 
-            cout << "--------------------------" << endl;
-          }
-          if(x3 > 640 || x2 > 640 || y3 > 479 || y2 > 479) {
-            cout << "Over" << endl;
-            cout << "(" << x0 << ", " << y0 << ")" << endl;
-            cout << "(" << x2 << ", " << y2 << ")" << endl;
-            cout << "(" << x1 << ", " << y1 << ")" << endl;
-            cout << "(" << x3 << ", " << y3 << ")" << endl; 
-            cout << "--------------------------" << endl;
-          } 
-          else {
-            DrawLine(y2,x2,y3,x3,100,out_image);
-          }
+          DrawLine(y2,x2,y3,x3,100,out_image);
         }
       }
   	}
