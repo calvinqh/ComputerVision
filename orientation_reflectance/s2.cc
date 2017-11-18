@@ -1,5 +1,12 @@
 /*
+* Computes the direction and intensities of the light sources from each image.
+* Finds the normal vector from the brightest surface spot on the sphere for the three images
+* For the intensity of the light source, use the magnitude (brightness) of the brightest
+* pixel found in the corresponding image. Scale the direction vector so that its length equals
+* this value.
 *
+* This program results in a directions file that contains the x,y,z components of the vector for the three light sourcs
+* 
 */
 #include "image.h"
 #include "programs.h"
@@ -13,8 +20,8 @@ using namespace Programs;
 
 int
 main(int argc, char **argv) {
-  if (argc != 3) {
-    printf("Usage: %s file1 file2\n", argv[0]);
+  if (argc != 6) {
+    printf("Usage: %s parameter_file image1 image2 image3 directions_file\n", argv[0]);
     return 0;
   }
 
