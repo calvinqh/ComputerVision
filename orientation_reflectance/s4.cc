@@ -1,5 +1,6 @@
 /*
-*
+* Outputs an albedo map. Computes the albedo visible from all 3 light sources
+* ALbedos are scaled down to 0-255
 */
 #include "image.h"
 #include "programs.h"
@@ -13,8 +14,8 @@ using namespace Programs;
 
 int
 main(int argc, char **argv) {
-  if (argc != 3) {
-    printf("Usage: %s file1 file2\n", argv[0]);
+  if (argc != 7) {
+    printf("Usage: %s input image1 image2 image3 threshold output\n", argv[0]);
     return 0;
   }
 
