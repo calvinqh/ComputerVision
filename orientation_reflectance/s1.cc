@@ -1,5 +1,7 @@
 /*
-*
+* Computes the radius and center of the sphere in the image
+* This prorgram assumes orthographic projection, this means sphere are projected as circles
+* The results of the spheres radius and center will be stored in the parameter file
 */
 #include "image.h"
 #include "programs.h"
@@ -13,8 +15,8 @@ using namespace Programs;
 
 int
 main(int argc, char **argv) {
-  if (argc != 3) {
-    printf("Usage: %s file1 file2\n", argv[0]);
+  if (argc != 4) {
+    printf("Usage: %s input_image threshold parameter_file\n", argv[0]);
     return 0;
   }
 
