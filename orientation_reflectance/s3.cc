@@ -1,5 +1,9 @@
 /*
-*
+* Computes the surface normals of the object
+* directions file, contains the vector componenets for the three light sources for the three images
+* output, contains the needle map of the surface normals
+* This program will only draw the surface normals if their brightness is above the threshold
+* The normal will not be drawn for all pixels, the pixels chosen are based on the pixel step size.
 */
 #include "image.h"
 #include "programs.h"
@@ -13,8 +17,8 @@ using namespace Programs;
 
 int
 main(int argc, char **argv) {
-  if (argc != 3) {
-    printf("Usage: %s file1 file2\n", argv[0]);
+  if (argc != 8) {
+    printf("Usage: %s direction_file image1 image2 image3 step threshold output\n", argv[0]);
     return 0;
   }
 
