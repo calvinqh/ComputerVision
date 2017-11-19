@@ -32,7 +32,7 @@ namespace Programs {
     //i.e. row coord of center, column coord of center, radius
     vector<int> features;
     int rowTotal = 0, colTotal = 0, total = 0;
-    double topR = binary_image->num_rows(), bottomR = 0, leftC = 0, rightC = 0;
+    double topR = binary_image->num_rows(), bottomR = 0, leftC = binary_image->num_columns(), rightC = 0;
 
     //finds the center of the image
     //TODO: fix column and row for i and j
@@ -55,7 +55,7 @@ namespace Programs {
       }
     }
     //calculate the average
-    double average_radius = ((bottomR-topR)/2 + (rightC-leftC)/2)/2;
+    double average_radius = (((bottomR-topR)/2) + ((rightC-leftC)/2))/2;
     cout << average_radius << endl;
     features.push_back(rowTotal/total);
     features.push_back(colTotal/total);
