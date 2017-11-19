@@ -23,7 +23,7 @@ namespace Programs {
 	//@param binary_image, binary image of a sphere
 	//@return, vector of cetner and radius for given sphere binary image
 	//i.e, center X, center Y, radius
-	vector<int> FindCenterAndRadius(Image* binary_image)
+	vector<int> FindCenterAndRadius(Image* binary_image);
 
 	
 
