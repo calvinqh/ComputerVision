@@ -21,7 +21,8 @@ main(int argc, char **argv) {
   }
 
   const string input_file(argv[1]);
-  const string output_file(argv[2]);
+  const size_t threshold = atoi(argv[2]);
+  const string output_file(argv[3]);
 
   Image an_image;
   Image edge_image;
@@ -31,8 +32,12 @@ main(int argc, char **argv) {
   	return 0;
   }
 
-  if (!WriteImage(output_file, edge_image)) {
-    cout << "Can't write to " << output_file << endl;
-  }
+
+  Image binary_image;
+  GenerateBinaryImage(&an_image,&binary_image,threshold);
+  vector<int> sphere_attributes = FindCenterAndRadius(binary_image);
+
+  //write sphere attributes onto parameter file.
+
   
 }
