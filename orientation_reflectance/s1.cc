@@ -35,7 +35,7 @@ main(int argc, char **argv) {
 
   Image binary_image;
   GenerateBinaryImage(&an_image,&binary_image,threshold);
-  vector<int> sphere_attributes = FindCenterAndRadius(binary_image);
+  vector<int> sphere_attributes = FindCenterAndRadius(&binary_image);
 
   //write sphere attributes onto parameter file.
 
