@@ -12,7 +12,7 @@ using namespace std;
 
 namespace Programs {
 
-  void GenerateBinarayImage(Image* an_image, Image* out_image, int threshold) {
+  void GenerateBinaryImage(Image* an_image, Image* out_image, int threshold) {
     cout << "Creating Binary Image ..." << endl;
     out_image->AllocateSpaceAndSetSize(an_image->num_rows(), an_image->num_columns());
     out_image->SetNumberGrayLevels(an_image->num_gray_levels());
