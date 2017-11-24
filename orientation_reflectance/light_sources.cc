@@ -29,7 +29,7 @@ namespace Programs {
     size_t maxR = 0;
     //maxC is the X position
     size_t maxC = 0;
-    for(size_t i = 0; i < an_image->num_rowS(); i++) {
+    for(size_t i = 0; i < an_image->num_rows(); i++) {
     	for(size_t j = 0; j < an_image->num_columns(); j++) {
     		int pixel = an_image->GetPixel(i,j);
     		if(pixel > maxBrightness) {
@@ -56,7 +56,7 @@ namespace Programs {
 
     //Draw the vector onto the image?
     //first make a copy, then draw onto the copy!
-    string output_file = 'sample1.pgm';
+    string output_file = "sample1.pgm";
 
     return light_source;  
   }
