@@ -1,3 +1,11 @@
+/*
+* Contains implementation of:
+* 
+*   void GenerateBinaryImage(Image*,Image*,int)
+*   vector<int> FindCenterAndRadius(Image*)
+*
+*
+*/
 #include "programs.h"
 #include "image.h"
 #include <cstdio>
