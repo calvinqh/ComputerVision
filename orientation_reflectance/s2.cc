@@ -56,7 +56,8 @@ main(int argc, char **argv) {
 
   while(getline(file,str)){
     parameters.push_back(stoi(str));
-    cout << parameters.back() << endl;
   }
   
+  
+
 }
