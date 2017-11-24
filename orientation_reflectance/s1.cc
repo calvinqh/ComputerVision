@@ -41,7 +41,7 @@ main(int argc, char **argv) {
   //saving the hough space into database file
   FILE* output = fopen(output_file.c_str(), "w");
   if(output==0 && output_file.compare("") != 0) {
-    cout << "Can't open voting file" << endl;
+    cout << "Can't open parameters file" << endl;
   }
   for(int i = 0; i < sphere_attributes.size(); i++) {
     string line = "";
