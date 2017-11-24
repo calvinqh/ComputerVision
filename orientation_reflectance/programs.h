@@ -29,7 +29,7 @@ namespace Programs {
   //Finds the x,y,z compnent of the light source vector for the given image
   //@param an_image, an image with one light source
   //@return, vector of x,y,z component of light source.
-	vector<int> FindLightSourceVector(Image* an_image);
+	vector<int> FindLightSourceVector(Image* an_image, size_t centerX, size_t centerY);
 
 
 }	//namespace programs
