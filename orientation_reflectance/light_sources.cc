@@ -20,7 +20,7 @@ using namespace std;
 
 namespace Programs {
 
-  vector<int> FindLightSourceVector(Image* an_image, size_t centerX, size_t centerY) {
+  vector<int> FindLightSourceVector(Image* an_image, size_t centerX, size_t centerY, size_t radius) {
     vector<int> light_source;
 
     //find the brightest pixel location
@@ -40,6 +40,16 @@ namespace Programs {
     	}
     }
 
+    //Calculate the light source vector
+    //which is the normal of the brightest pixel
+    //FIX: the order of center and max!!!!!!!!!
+    light_source.push_back(centerX-maxC);
+    light_source.push_back(centerY-maxR);
+
+    //calculate the Z component of normal vector
+    size_t z_comp = 0;
+    z_comp = sqrt(1);
+    light_source.push_back(0;)
 
     return light_source;  
   }
