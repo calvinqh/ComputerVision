@@ -57,7 +57,32 @@ main(int argc, char **argv) {
   while(getline(file,str)){
     parameters.push_back(stoi(str));
   }
-  
+
+  //retrieve the light source vectors for each sphere image
+  vector<vector<int>> direction_vectors;
+  vector<int> temp;
+  temp = FindLightSourceVector(&an_image1,parameters[0],parameters[1],parameters[2]);
+  direction_vectors.push_back(temp);
+  temp = FindLightSourceVector(&an_image2,parameters[0],parameters[1],parameters[2]);
+  direction_vectors.push_back(temp);
+  temp = FindLightSourceVector(&an_image3,parameters[0],parameters[1],parameters[2]);
+  direction_vectors.push_back(temp);
+
+  //write light source vectors into file
+  FILE* output = fopen(directions_file.c_str(), "w");
+  if(output==0 && directions_file.compare("") != 0) {
+    cout << "Can't open directions file" << endl;
+  }
+  //for each light source
+  for(int i = 0; i < direction_vectors.size(); i++) {
+    string line = "";
+    //for each component
+    for(int j = 0; j < direction_vectors[0].size(); j++) {
+      line += to_string(direction_vectors[i][j]) + " ";
+    }
+    fprintf(output,line.c_str());
+  }
+  if(output!=0) fclose(output);
   
 
 }
