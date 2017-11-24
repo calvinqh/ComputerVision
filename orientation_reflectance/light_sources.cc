@@ -43,13 +43,20 @@ namespace Programs {
     //Calculate the light source vector
     //which is the normal of the brightest pixel
     //FIX: the order of center and max!!!!!!!!!
-    light_source.push_back(centerX-maxC);
-    light_source.push_back(centerY-maxR);
+    double deltaX = centerX-maxC;
+    double deltaY = centerY-maxR;
+    light_source.push_back(deltaX);
+    light_source.push_back(deltaY);
 
     //calculate the Z component of normal vector
     size_t z_comp = 0;
-    z_comp = sqrt(1);
-    light_source.push_back(0;)
+    //R^2 - (X-Xc)^2 - (Y-Yc)^2
+    z_comp = sqrt(pow(radius,2)-pow(deltaX,2)-pow(deltaY,2));
+    light_source.push_back(z_comp);
+
+    //Draw the vector onto the image?
+    //first make a copy, then draw onto the copy!
+    string output_file = 'sample1.pgm';
 
     return light_source;  
   }
