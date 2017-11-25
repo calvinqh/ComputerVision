@@ -29,17 +29,32 @@ namespace Programs {
       }
   }
 
-  void getDeterminant(vector<vector<int>> &matrix) {
-
+  int get3x3Determinant(vector<vector<int>> &matrix) {
+    int accumulator = 0;
+    int a = matrix[0][0];
+    int b = matrix[0][1];
+    int c = matrix[0][2];
+    int d = matrix[1][0];
+    int e = matrix[1][1];
+    int f = matrix[1][2];
+    int g = matrix[2][0];
+    int h = matrix[2][1];
+    int i = matrix[2][2];
+    accumulator = a * (e*i + (-1*f*h));
+    accumulator = accumulator - (b * (d*i + (-1*f*g)));
+    accumulator = accumulator - (c *(d*h + (-1*e*g)));
+    
+    return accumulator;
   }
 
   void inverseMatrix(vector<vector<int>> &matrix) {
-      for(int i = 0; i < matrix.size(); i++) {
-        for(int j = 0; j < matrix[0].size(); j++) {
-          matrix[i][j] = 0;
-        }
+    int determinant = get3x3Determinant(matrix);
+    for(int i = 0; i < matrix.size(); i++) {
+      for(int j = 0; j < matrix[0].size(); j++) {
+        matrix[i][j] = 0;
       }
-      printMatrix(matrix);
+    }
+    printMatrix(matrix);
   }
 
   void FindSurfaceNormals(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int step, int threshold, Image* out_image) {
