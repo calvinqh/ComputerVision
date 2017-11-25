@@ -1,7 +1,7 @@
 /*
 * Contains implementation of:
 *	
-*		vector<int> FindLightSourceVector(Image*,size_t,size_t)
+*		vector<int> FindLightSourceVector(Image*,int,int,int)
 *
 *
 *
