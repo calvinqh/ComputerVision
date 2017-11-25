@@ -20,7 +20,65 @@ using namespace std;
 
 namespace Programs {
 
+  void printMatrix(vector<vector<int>> &matrix) {
+      for(int i = 0; i < matrix.size(); i++) {
+        for(int j = 0; j < matrix[0].size(); j++) {
+          cout << matrix[i][j] << " ";
+        }
+        cout << endl;
+      }
+  }
+
+  void getDeterminant(vector<vector<int>> &matrix) {
+
+  }
+
+  void inverseMatrix(vector<vector<int>> &matrix) {
+      for(int i = 0; i < matrix.size(); i++) {
+        for(int j = 0; j < matrix[0].size(); j++) {
+          matrix[i][j] = 0;
+        }
+      }
+      printMatrix(matrix);
+  }
+
   void FindSurfaceNormals(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int step, int threshold, Image* out_image) {
+
+    //Copy image1 into outImage
+    out_image->AllocateSpaceAndSetSize(image1->num_rows(), image1->num_columns());
+    out_image->SetNumberGrayLevels(image1->num_gray_levels());
+
+
+    //For each step pixel, find the N vector
+    for(size_t row = 0+step; row < out_image->num_rows(); row+=step) {
+      for(size_t col = 0+step; col < out_image->num_columns(); col+=step) {
+        vector<int> intensities;
+        intensities.push_back(image1->GetPixel(row,col));
+        intensities.push_back(image2->GetPixel(row,col));
+        intensities.push_back(image3->GetPixel(row,col));
+        int counter = 0;
+
+        vector<double> N; //will contain the components of the normal vector for the pixel
+        double size = 0;
+        for(size_t source = 0; source < directions.size(); source++) {
+          int total = 0;
+          for(size_t component = 0; component < directions[0].size(); component++) {
+            total += (directions[source][component]*intensities[counter++]);
+          }
+          //TODO: save total into N vector for that pixel
+          N.push_back(total);
+          size += pow(total,2);
+          counter = 0;
+        }
+        size = sqrt(size);
+        //compute the normal and draw
+        for(size_t index = 0; index < N.size(); index++) {
+          N[index] = N[index]/size;
+
+        }
+      }
+
+    }
     /*
     * Check slide 19!!
     * Loop, for i = 0 + step to all rows and for j = 0 + step to all columns
