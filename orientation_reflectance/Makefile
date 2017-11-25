@@ -62,6 +62,18 @@ s_3:
 s_4:
 	make $(PROGRAM_4)
 
+r1:
+	./s1.exe sphere0.pgm 110 attr.txt
+
+r2:
+	./s2.exe attr.txt sphere1.pgm sphere2.pgm sphere3.pgm dir.txt
+
+r3:
+	./s3.exe dir.txt object1.pgm object2.pgm object3.pgm 5 norm.pgm
+
+r4:
+	./s4.exe dir.txt object1.pgm object2.pgm object3.pgm alb.pgm
+
 clean:
 	(rm -f *.o;)
 
