@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 using namespace ComputerVisionProjects;
@@ -66,7 +67,7 @@ main(int argc, char **argv) {
   Image out_image;
   ComputeSurfaceAlbedo(directions, &an_image1, &an_image2, &an_image3, threshold, &out_image);
 
-  if (!WriteImage(output_file, &out_image)) {
+  if (!WriteImage(output_file, out_image)) {
     cout << "Can't write to " << output_file << endl;
   }
   
