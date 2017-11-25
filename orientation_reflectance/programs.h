@@ -31,6 +31,16 @@ namespace Programs {
   //@return, vector of x,y,z component of light source.
 	vector<int> FindLightSourceVector(Image* an_image, int centerX, int centerY, int radius);
 
+  //Finds the surface normals and applies it to image1
+  //@param directions, a vector containing light source directions for each of the three images. contains X,Y,Z component
+  //@param image1, an image with light source parameters at directions[0]
+  //@param image2, an image with light source parameters at directions[1]
+  //@param image3, an image with light source parameters at directions[2]
+  //@param step, the distance between grid points  on which vectors will be drawn on
+  //@param threshold, what would be considered as a surface
+  //@param out_image, surface normals are drawn onto image1
+  void FindSurfaceNormals(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int step, int threshold, Image* out_image);
+
 
 
 
