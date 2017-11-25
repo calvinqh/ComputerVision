@@ -47,8 +47,46 @@ namespace Programs {
     return accumulator;
   }
 
+  int get2x2Determinant(vector<vector<int>> &matrix, int rStart, int rEnd, int cStart, int cEnd) {
+    int a = matrix[rStart][cStart];
+    int b = matrix[rStart][cEnd];
+    int c = matrix[rEnd][cStart];
+    int d = matrix[rEnd][cEnd];
+    return (a*d - b*c);
+  }
+
+  vector<vector<int>> getMatrixOfMinors(vector<vector<int>> &matrix) {
+    vector<vector<int>> matrix_of_minors;
+    for(int i = 0; i < matrix.size(); i++) {
+      vector<int> row;
+      for(int j = 0; j < matrix[0].size(); j++) {
+        int rowStart = 0, rowEnd = 1;
+        int colStart = 0, colEnd = 1;
+        if(i == 0) {
+          rowStart = i+1;
+          rowEnd = i+2;
+        }
+        else if(i == 1) {
+          rowStart = i-1;
+          rowEnd = i+1;
+        }
+        if(j == 0) {
+          colStart = j+1;
+          colEnd = j+2;
+        }
+        else if(j == 1) {
+          colStart = j-1;
+          colEnd = j+1;
+        }
+        row.push_back(get2x2Determinant(matrix,rowStart,rowEnd,colStart,colEnd));
+      }
+      matrix_of_minors.push_back(row);
+    }
+  }
+
   void inverseMatrix(vector<vector<int>> &matrix) {
     int determinant = get3x3Determinant(matrix);
+    vector<vector<int>> matrix_of_minors = getMatrixOfMinors(matrx);
     for(int i = 0; i < matrix.size(); i++) {
       for(int j = 0; j < matrix[0].size(); j++) {
         matrix[i][j] = 0;
