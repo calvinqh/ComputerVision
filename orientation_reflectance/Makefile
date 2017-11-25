@@ -29,11 +29,11 @@ LIBS_ALL =  -L/usr/lib -L/usr/local/lib
 
 
 #First Program (ListTest)
-Cpp_OBJ = image.o sphere_feature.o light_sources.o
-Cpp_OBJ_1 = image.o sphere_feature.o light_sources.o s1.o
-Cpp_OBJ_2 = image.o sphere_feature.o light_sources.o s2.o
-Cpp_OBJ_3 = image.o sphere_feature.o light_sources.o s3.o
-Cpp_OBJ_4 = image.o sphere_feature.o light_sources.o s4.o
+Cpp_OBJ = image.o sphere_feature.o light_sources.o surface_normal.o albedo.o
+Cpp_OBJ_1 = image.o sphere_feature.o light_sources.o surface_normal.o albedo.o s1.o
+Cpp_OBJ_2 = image.o sphere_feature.o light_sources.o surface_normal.o albedo.o s2.o
+Cpp_OBJ_3 = image.o sphere_feature.o light_sources.o surface_normal.o albedo.o s3.o
+Cpp_OBJ_4 = image.o sphere_feature.o light_sources.o surface_normal.o albedo.o s4.o
 
 PROGRAM_1 = s1
 $(PROGRAM_1): $(Cpp_OBJ_1)
