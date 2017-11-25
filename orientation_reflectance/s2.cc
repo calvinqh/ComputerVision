@@ -61,11 +61,11 @@ main(int argc, char **argv) {
   //retrieve the light source vectors for each sphere image
   vector<vector<int>> direction_vectors;
   vector<int> temp;
-  temp = FindLightSourceVector(&an_image1,parameters[0],parameters[1],parameters[2]);
+  temp = FindLightSourceVector(&an_image1,parameters[1],parameters[0],parameters[2]);
   direction_vectors.push_back(temp);
-  temp = FindLightSourceVector(&an_image2,parameters[0],parameters[1],parameters[2]);
+  temp = FindLightSourceVector(&an_image2,parameters[1],parameters[0],parameters[2]);
   direction_vectors.push_back(temp);
-  temp = FindLightSourceVector(&an_image3,parameters[0],parameters[1],parameters[2]);
+  temp = FindLightSourceVector(&an_image3,parameters[1],parameters[0],parameters[2]);
   direction_vectors.push_back(temp);
 
   //write light source vectors into file
@@ -80,6 +80,7 @@ main(int argc, char **argv) {
     for(int j = 0; j < direction_vectors[0].size(); j++) {
       line += to_string(direction_vectors[i][j]) + " ";
     }
+    line += "\n";
     fprintf(output,line.c_str());
   }
   if(output!=0) fclose(output);
