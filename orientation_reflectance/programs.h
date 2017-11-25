@@ -42,6 +42,15 @@ namespace Programs {
   void FindSurfaceNormals(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int step, int threshold, Image* out_image);
 
 
+  //Creates a surface albedo image for the provided three images
+  //@param directions, the 3 light source directions for the three images
+  //@param image1, an image with light source parameters at directions[0]
+  //@param image2, an image with light source parameters at directions[1]
+  //@param image3, an image with light source parameters at directions[2]
+  //@param threshold, what would be considered as a surface
+  //@param out_image, surface normals are drawn onto image1
+  void ComputeSurfaceAlbedo(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int threshold, Image* out_image );
+
 
 
 }	//namespace programs
