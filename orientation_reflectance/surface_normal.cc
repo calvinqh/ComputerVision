@@ -122,6 +122,17 @@ namespace Programs {
 
   }
 
+  void createBlackPoint(Image* an_image, int row, int col) {
+    for(int i = -1; i < 2; i++) {
+      for(int j = -1; j < 2; j++) {
+        if(i == 0 && i == 0 && j == 0 && j == 0)
+          an_image->SetPixel(row+i,col+j,0);
+        else
+          an_image->SetPixel(row+i,col+j,255);
+      }
+    }
+  }
+
   void FindSurfaceNormals(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int step, int threshold, Image* out_image) {
 
     //Copy image1 into outImage
@@ -169,6 +180,7 @@ namespace Programs {
         coords[1] = row + N[1] * 10;
 
         DrawLine(row,col, coords[1], coords[0], 255, out_image);
+        createBlackPoint(out_image,row,col);
       }
 
     }
