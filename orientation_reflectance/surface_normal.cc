@@ -84,15 +84,34 @@ namespace Programs {
     }
   }
 
-  void inverseMatrix(vector<vector<int>> &matrix) {
+  vector<vector<int>> getMatrixCoFactors(vector<vector<int>> &matrix) {
+    vector<vector<int>> cofactors;
+    int sign = 1;
+    for(int i = 0; i < matrix.size(); i++) {
+      vector<int> row;
+      for(int j = 0; j < matrix[0].size(); j++) {
+        row.push_back(sign*matrix[i][j]);
+        sign *= -1;
+      }
+      cofactors.push_back(row);
+    }
+    return cofactors;
+  }
+
+  vector<vector<int>> inverseMatrix(vector<vector<int>> &matrix) {
     int determinant = get3x3Determinant(matrix);
     vector<vector<int>> matrix_of_minors = getMatrixOfMinors(matrx);
+    vector<vector<int>> cofactors = getMatrixCoFactors(matrix_of_minors);
+    vector<vector<int>> inverse;
     for(int i = 0; i < matrix.size(); i++) {
+      vector<int> row;
       for(int j = 0; j < matrix[0].size(); j++) {
         matrix[i][j] = 0;
       }
+      inverse.push_back(row);
     }
     printMatrix(matrix);
+    return inverse;
   }
 
   void FindSurfaceNormals(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int step, int threshold, Image* out_image) {
@@ -101,6 +120,7 @@ namespace Programs {
     out_image->AllocateSpaceAndSetSize(image1->num_rows(), image1->num_columns());
     out_image->SetNumberGrayLevels(image1->num_gray_levels());
 
+    vector<vector<int>> source_inverse = inverseMatrix(directions);
 
     //For each step pixel, find the N vector
     for(size_t row = 0+step; row < out_image->num_rows(); row+=step) {
@@ -113,10 +133,10 @@ namespace Programs {
 
         vector<double> N; //will contain the components of the normal vector for the pixel
         double size = 0;
-        for(size_t source = 0; source < directions.size(); source++) {
+        for(size_t source = 0; source < source_inverse.size(); source++) {
           int total = 0;
-          for(size_t component = 0; component < directions[0].size(); component++) {
-            total += (directions[source][component]*intensities[counter++]);
+          for(size_t component = 0; component < source_inverse[0].size(); component++) {
+            total += (source_inverse[source][component]*intensities[counter++]);
           }
           //TODO: save total into N vector for that pixel
           N.push_back(total);
