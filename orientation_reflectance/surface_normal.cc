@@ -20,7 +20,8 @@ using namespace std;
 
 namespace Programs {
 
-  void printMatrix(vector<vector<int>> &matrix) {
+  template<typename T>
+  void printMatrix(vector<vector<T>> &matrix) {
       for(int i = 0; i < matrix.size(); i++) {
         for(int j = 0; j < matrix[0].size(); j++) {
           cout << matrix[i][j] << " ";
@@ -29,7 +30,7 @@ namespace Programs {
       }
   }
 
-  int get3x3Determinant(vector<vector<int>> &matrix) {
+  double get3x3Determinant(vector<vector<int>> &matrix) {
     int accumulator = 0;
     int a = matrix[0][0];
     int b = matrix[0][1];
@@ -99,26 +100,26 @@ namespace Programs {
     return cofactors;
   }
 
-  vector<vector<int>> inverseMatrix(vector<vector<int>> &matrix) {
-    int determinant = get3x3Determinant(matrix);
+  vector<vector<double>> inverseMatrix(vector<vector<int>> &matrix) {
+    double determinant = get3x3Determinant(matrix);
     cout << determinant << " Line 103" << endl;
-    
     vector<vector<int>> matrix_of_minors = getMatrixOfMinors(matrix);
-    /*
     vector<vector<int>> cofactors = getMatrixCoFactors(matrix_of_minors);
-    vector<vector<int>> inverse;
+    vector<vector<double>> inverse;
     for(int i = 0; i < cofactors.size(); i++) {
-      vector<int> row;
+      vector<double> row;
       for(int j = 0; j < cofactors[0].size(); j++) {
-        row.push_back(cofactors[i][j] * (1/double(determinant)));
+        double value = cofactors[i][j] * (1/determinant);
+        row.push_back(value);
       }
       inverse.push_back(row);
     }
-    printMatrix(matrix);
+    cout << "------" << endl;
+    printMatrix(cofactors);
+    cout << "------" << endl;
+    printMatrix(inverse);
     return inverse;
-    */
-    vector<vector<int>> result;
-    return result;
+
   }
 
   void FindSurfaceNormals(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int step, int threshold, Image* out_image) {
@@ -126,13 +127,20 @@ namespace Programs {
     //Copy image1 into outImage
     out_image->AllocateSpaceAndSetSize(image1->num_rows(), image1->num_columns());
     out_image->SetNumberGrayLevels(image1->num_gray_levels());
+    for(int i = 0; i < out_image->num_rows(); i++) {
+      for(int j = 0; j < out_image->num_columns(); j++) {
+        out_image->SetPixel(i,j,image1->GetPixel(i,j));
+      }
+    }
 
-    vector<vector<int>> source_inverse = inverseMatrix(directions);
+    vector<vector<double>> source_inverse = inverseMatrix(directions);
     cout << "Line 124" << endl;
-    /*
+    
     //For each step pixel, find the N vector
     for(size_t row = 0+step; row < out_image->num_rows(); row+=step) {
       for(size_t col = 0+step; col < out_image->num_columns(); col+=step) {
+        if(image1->GetPixel(row,col) < threshold)
+          continue;
         vector<int> intensities;
         intensities.push_back(image1->GetPixel(row,col));
         intensities.push_back(image2->GetPixel(row,col));
@@ -156,13 +164,15 @@ namespace Programs {
         for(size_t index = 0; index < N.size(); index++) {
           N[index] = N[index]/size;
         }
+
         coords[0] = col + N[0] * 10;
         coords[1] = row + N[1] * 10;
+
         DrawLine(row,col, coords[1], coords[0], 255, out_image);
       }
 
     }
-    */
+    
   }
 
 }
