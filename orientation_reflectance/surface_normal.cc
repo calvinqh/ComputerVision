@@ -138,17 +138,19 @@ namespace Programs {
           for(size_t component = 0; component < source_inverse[0].size(); component++) {
             total += (source_inverse[source][component]*intensities[counter++]);
           }
-          //TODO: save total into N vector for that pixel
           N.push_back(total);
           size += pow(total,2);
           counter = 0;
         }
         size = sqrt(size);
-        //compute the normal and draw
+        //compute the normal  and draw
+        vector<int> coords = {0,0}; //x and y coords for the normal vector (col,row)
         for(size_t index = 0; index < N.size(); index++) {
           N[index] = N[index]/size;
-
         }
+        coords[0] = col + N[0] * 10;
+        coords[1] = row + N[1] * 10;
+        DrawLine(row,col, coords[1], coords[0], out_image);
       }
 
     }
