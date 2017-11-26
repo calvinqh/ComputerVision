@@ -29,11 +29,11 @@ LIBS_ALL =  -L/usr/lib -L/usr/local/lib
 
 
 #First Program (ListTest)
-Cpp_OBJ = image.o sphere_feature.o light_sources.o surface_normal.o albedo.o
-Cpp_OBJ_1 = image.o sphere_feature.o light_sources.o surface_normal.o albedo.o s1.o
-Cpp_OBJ_2 = image.o sphere_feature.o light_sources.o surface_normal.o albedo.o s2.o
-Cpp_OBJ_3 = image.o sphere_feature.o light_sources.o surface_normal.o albedo.o s3.o
-Cpp_OBJ_4 = image.o sphere_feature.o light_sources.o surface_normal.o albedo.o s4.o
+Cpp_OBJ = image.o matrix_functions.o sphere_feature.o light_sources.o surface_normal.o albedo.o
+Cpp_OBJ_1 = image.o matrix_functions.o sphere_feature.o light_sources.o surface_normal.o albedo.o s1.o
+Cpp_OBJ_2 = image.o matrix_functions.o sphere_feature.o light_sources.o surface_normal.o albedo.o s2.o
+Cpp_OBJ_3 = image.o matrix_functions.o sphere_feature.o light_sources.o surface_normal.o albedo.o s3.o
+Cpp_OBJ_4 = image.o matrix_functions.o sphere_feature.o light_sources.o surface_normal.o albedo.o s4.o
 
 PROGRAM_1 = s1
 $(PROGRAM_1): $(Cpp_OBJ_1)
@@ -72,7 +72,7 @@ r3:
 	./s3.exe dir.txt object1.pgm object2.pgm object3.pgm 10 85 norm.pgm
 
 r4:
-	./s4.exe dir.txt object1.pgm object2.pgm object3.pgm 80 alb.pgm
+	./s4.exe dir.txt object1.pgm object2.pgm object3.pgm 85 alb.pgm
 
 clean:
 	(rm -f *.o;)
