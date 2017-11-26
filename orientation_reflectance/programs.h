@@ -51,6 +51,22 @@ namespace Programs {
   //@param out_image, surface normals are drawn onto image1
   void ComputeSurfaceAlbedo(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int threshold, Image* out_image );
 
+  template<typename T>
+  void printMatrix(vector<vector<T>> &matrix);
+
+  double get3x3Determinant(vector<vector<int>> &matrix, vector<vector<int>> &minors_matrix);
+
+  int get2x2Determinant(vector<vector<int>> &matrix, int rStart, int rEnd, int cStart, int cEnd);
+
+  void flippyflip(vector<vector<int>>& matrix);
+
+  void adjugate(vector<vector<int>> &matrix);
+
+  vector<vector<int>> getMatrixOfMinors(vector<vector<int>> &matrix);
+
+  vector<vector<int>> getMatrixCoFactors(vector<vector<int>> &matrix);
+
+  vector<vector<double>> inverseMatrix(vector<vector<int>> &matrix);
 
 
 }	//namespace programs
