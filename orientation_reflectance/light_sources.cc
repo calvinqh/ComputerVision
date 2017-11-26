@@ -20,6 +20,19 @@ using namespace std;
 
 namespace Programs {
 
+  double getPartialOfX(int x, int y, int radius) {
+    //-x/sqrt(R^2 - X^2 - Y^2)
+    double numer = -1 * x;
+    double denom = sqrt(pow(r,2) - pow(x,2) - pow(y,2));
+    return numer/denom;
+  }
+  double getPartialOfY(int x, int y, int radius) {
+    //-y/sqrt(R^2 - X^2 - Y^2)
+    double numer = -1 * y;
+    double denom = sqrt(pow(r,2) - pow(x,2) - pow(y,2));
+    return numer/denom;
+  }
+
   vector<int> FindLightSourceVector(Image* an_image, int centerX, int centerY, int radius) {
     vector<int> light_source;
 
@@ -46,11 +59,15 @@ namespace Programs {
     //FIX: the order of center and max!!!!!!!!!
     double deltaX = centerX-maxC;
     double deltaY = centerY-maxR;
-    light_source.push_back(deltaX);
-    light_source.push_back(deltaY);
+    double p = getPartialOfX(deltaX,deltaY,radius);
+    double q = getPartialOfY(deltaX,deltaY,radius);
+    
+    double denominator = sqrt(pow(p,2) + pow(q,2) + 1);
+    light_source.push_back(p/denominator*maxBrightness);
+    light_source.push_back(q/denominator*maxBrightness);
 
     //calculate the Z component of normal vector
-    int z_comp = 0;
+    double z_comp = 0;
     //R^2 - (X-Xc)^2 - (Y-Yc)^2
     cout << "centerX: " << centerX << endl;
     cout << "maxC: " << maxC << endl;
@@ -62,7 +79,8 @@ namespace Programs {
     cout << pow(deltaY,2) << endl;
     cout << "-------------" << endl;
     z_comp = sqrt(pow(radius,2)-pow(deltaX,2)-pow(deltaY,2));
-    light_source.push_back(z_comp);
+    z_comp = 1/denominator;
+    light_source.push_back(z_comp*maxBrightness);
 
 
     //TODO:scale the vector based off brightness magitutde....
