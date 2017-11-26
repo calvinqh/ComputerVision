@@ -69,10 +69,10 @@ r2:
 	./s2.exe attr.txt sphere1.pgm sphere2.pgm sphere3.pgm dir.txt
 
 r3:
-	./s3.exe dir.txt object1.pgm object2.pgm object3.pgm 5 norm.pgm
+	./s3.exe dir.txt object1.pgm object2.pgm object3.pgm 5 80 norm.pgm
 
 r4:
-	./s4.exe dir.txt object1.pgm object2.pgm object3.pgm alb.pgm
+	./s4.exe dir.txt object1.pgm object2.pgm object3.pgm 80 alb.pgm
 
 clean:
 	(rm -f *.o;)
