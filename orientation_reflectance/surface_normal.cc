@@ -106,7 +106,7 @@ namespace Programs {
     for(int i = 0; i < matrix.size(); i++) {
       vector<int> row;
       for(int j = 0; j < matrix[0].size(); j++) {
-        matrix[i][j] = 0;
+        row.push_back(cofactors[i][j] * (1/double(determinant)));
       }
       inverse.push_back(row);
     }
