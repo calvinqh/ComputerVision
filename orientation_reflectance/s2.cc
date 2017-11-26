@@ -60,7 +60,7 @@ main(int argc, char **argv) {
 
   //retrieve the light source vectors for each sphere image
   vector<vector<double>> direction_vectors;
-  vector<int> temp;
+  vector<double> temp;
   temp = FindLightSourceVector(&an_image1,parameters[1],parameters[0],parameters[2]);
   direction_vectors.push_back(temp);
   temp = FindLightSourceVector(&an_image2,parameters[1],parameters[0],parameters[2]);
