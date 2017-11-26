@@ -82,6 +82,7 @@ namespace Programs {
       }
       matrix_of_minors.push_back(row);
     }
+    return matrix_of_minors;
   }
 
   vector<vector<int>> getMatrixCoFactors(vector<vector<int>> &matrix) {
@@ -100,18 +101,24 @@ namespace Programs {
 
   vector<vector<int>> inverseMatrix(vector<vector<int>> &matrix) {
     int determinant = get3x3Determinant(matrix);
-    vector<vector<int>> matrix_of_minors = getMatrixOfMinors(matrx);
+    cout << determinant << " Line 103" << endl;
+    
+    vector<vector<int>> matrix_of_minors = getMatrixOfMinors(matrix);
+    /*
     vector<vector<int>> cofactors = getMatrixCoFactors(matrix_of_minors);
     vector<vector<int>> inverse;
-    for(int i = 0; i < matrix.size(); i++) {
+    for(int i = 0; i < cofactors.size(); i++) {
       vector<int> row;
-      for(int j = 0; j < matrix[0].size(); j++) {
+      for(int j = 0; j < cofactors[0].size(); j++) {
         row.push_back(cofactors[i][j] * (1/double(determinant)));
       }
       inverse.push_back(row);
     }
     printMatrix(matrix);
     return inverse;
+    */
+    vector<vector<int>> result;
+    return result;
   }
 
   void FindSurfaceNormals(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int step, int threshold, Image* out_image) {
@@ -121,7 +128,8 @@ namespace Programs {
     out_image->SetNumberGrayLevels(image1->num_gray_levels());
 
     vector<vector<int>> source_inverse = inverseMatrix(directions);
-
+    cout << "Line 124" << endl;
+    /*
     //For each step pixel, find the N vector
     for(size_t row = 0+step; row < out_image->num_rows(); row+=step) {
       for(size_t col = 0+step; col < out_image->num_columns(); col+=step) {
@@ -150,15 +158,10 @@ namespace Programs {
         }
         coords[0] = col + N[0] * 10;
         coords[1] = row + N[1] * 10;
-        DrawLine(row,col, coords[1], coords[0], out_image);
+        DrawLine(row,col, coords[1], coords[0], 255, out_image);
       }
 
     }
-    /*
-    * Check slide 19!!
-    * Loop, for i = 0 + step to all rows and for j = 0 + step to all columns
-    *   For each pixel (within the steps)
-    *     Normal vector = Calculate S^-1 (the threee light source vectors) * the three intensities
     */
   }
 
