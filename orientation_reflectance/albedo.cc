@@ -25,13 +25,7 @@ namespace Programs {
   }
 
   void ComputeSurfaceAlbedo(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int threshold, Image* out_image ) {
-    
-    cout << "-------------" << endl;
-    cout << "Directions" << endl;
-    printMatrix(directions);
-    cout << "-------------" << endl;
-    int max = 0;
-    int min = 500000000;
+
     //Copy image1 into outImage
     out_image->AllocateSpaceAndSetSize(image1->num_rows(), image1->num_columns());
     out_image->SetNumberGrayLevels(image1->num_gray_levels());
@@ -63,7 +57,6 @@ namespace Programs {
           for(size_t component = 0; component < source_inverse[0].size(); component++) {
             total += (source_inverse[source][component]*intensities[counter++]);
           }
-          //cout << source << " Total :" << total << endl;
           size += pow(total,2);
           counter = 0;
         }
@@ -73,15 +66,9 @@ namespace Programs {
           max = size;
         if (size < min)
           min = size;
-        //cout << "Size: " <<  size << endl;
-        //out_image->SetPixel(row,col, out_image->GetPixel(row,col) * size / 2.75);
         out_image->SetPixel(row,col, 127.1 * size );
-
       }
-
     }
-    cout << "min: " << min << endl;
-    cout << "max: " << max << endl;
   }
 
 
