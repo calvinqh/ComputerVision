@@ -62,10 +62,6 @@ namespace Programs {
         }
 
         size = sqrt(size);
-        if(size > max)
-          max = size;
-        if (size < min)
-          min = size;
         out_image->SetPixel(row,col, 127.1 * size );
       }
     }
