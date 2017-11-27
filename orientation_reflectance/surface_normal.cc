@@ -19,7 +19,6 @@
 using namespace std;
 
 namespace Programs {
-
   
 
   void createBlackPoint(Image* an_image, int row, int col) {
@@ -35,10 +34,6 @@ namespace Programs {
 
   void FindSurfaceNormals(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int step, int threshold, Image* out_image) {
 
-    cout << "-------------" << endl;
-    cout << "Directions" << endl;
-    printMatrix(directions);
-    cout << "-------------" << endl;
 
     //Copy image1 into outImage
     out_image->AllocateSpaceAndSetSize(image1->num_rows(), image1->num_columns());
@@ -50,8 +45,7 @@ namespace Programs {
     }
 
     vector<vector<double>> source_inverse = inverseMatrix(directions);
-    
-    cout << "Line 124" << endl;
+
     
     //For each step pixel, find the N vector
     for(size_t row = 0+step; row < out_image->num_rows(); row+=step) {
@@ -72,28 +66,22 @@ namespace Programs {
           for(size_t component = 0; component < source_inverse[0].size(); component++) {
             total += (source_inverse[source][component]*intensities[counter++]);
           }
-          cout << source << " Total :" << total << endl;
           N.push_back(total);
           size += pow(total,2);
           counter = 0;
         }
 
         size = sqrt(size);
-        cout << "Size: " <<  size << endl;
         //compute the normal  and draw
         vector<int> coords = {0,0}; //x and y coords for the normal vector (col,row)
         for(size_t index = 0; index < N.size(); index++) {
           N[index] = N[index]/size;
-          cout << N[index] << endl;
         }
 
         coords[0] = col + N[0] * 10;
         coords[1] = row + N[1] * 10;
 
         DrawLine(row,col, coords[1], coords[0], 255, out_image);
-        cout << row << ", " << col << endl;
-        cout << coords[0] << ", " << coords[1] << endl;
-        cout << N[0] << ", " << N[1] << endl;
         createBlackPoint(out_image,row,col);
       }
 
