@@ -52,7 +52,6 @@ namespace Programs {
     		}
     	}
     }
-    cout << "Max Brightness: " << maxBrightness << endl;
 
     //Calculate the light source vector
     //which is the normal of the brightest pixel
@@ -70,20 +69,7 @@ namespace Programs {
     double z_comp = 1;
     //R^2 - (X-Xc)^2 - (Y-Yc)^2
     //z_comp = sqrt(pow(radius,2)-pow(deltaX,2)-pow(deltaY,2));
-    light_source.push_back(z_comp*maxBrightness);
-    cout << "centerX: " << centerX << endl;
-    cout << "maxC: " << maxC << endl;
-    cout << "centerY: " << centerY << endl;
-    cout << "maxR: " << maxR << endl;
-    cout << "deltaX,deltaY: " << deltaX << ", " << deltaY << endl;
-    cout << light_source[0] << endl;
-    cout << light_source[1] << endl;
-    cout << light_source[2] << endl;
-    cout << "-------------" << endl;
-
-    //Draw the vector onto the image?
-    //first make a copy, then draw onto the copy!
-    string output_file = "sample1.pgm";
+    light_source.push_back(z_comp*maxBrightness/denominator);
 
     return light_source;  
   }
