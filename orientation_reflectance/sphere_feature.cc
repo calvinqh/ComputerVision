@@ -21,7 +21,6 @@ using namespace std;
 namespace Programs {
 
   void GenerateBinaryImage(Image* an_image, Image* out_image, int threshold) {
-    cout << "Creating Binary Image ..." << endl;
     out_image->AllocateSpaceAndSetSize(an_image->num_rows(), an_image->num_columns());
     out_image->SetNumberGrayLevels(an_image->num_gray_levels());
     for(size_t i = 0; i< an_image->num_rows(); i++) {
@@ -32,7 +31,6 @@ namespace Programs {
         out_image->SetPixel(i,j,byte);
       }
     }
-    cout << "Binary Image created." << endl;
   }
 
   vector<int> FindCenterAndRadius(Image* binary_image) {
