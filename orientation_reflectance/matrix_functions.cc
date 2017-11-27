@@ -17,8 +17,10 @@
 #include <math.h>
 
 using namespace std;
+using namespace ComputerVisionProjects;
+using namespace Programs;
 
-namespace Programs {
+namespace Matrix {
 
   template<typename T>
   void printMatrix(vector<vector<T>> &matrix) {
