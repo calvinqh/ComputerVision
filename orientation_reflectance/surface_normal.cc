@@ -8,6 +8,7 @@
 */
 #include "programs.h"
 #include "image.h"
+#include "matrix_functions.h"
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
@@ -17,6 +18,7 @@
 #include <math.h>
 
 using namespace std;
+using namespace Matrix;
 
 namespace Programs {
   
