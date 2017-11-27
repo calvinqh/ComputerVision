@@ -64,7 +64,6 @@ namespace Programs {
     }
     //calculate the average
     double average_radius = (((bottomR-topR)/2) + ((rightC-leftC)/2))/2;
-    cout << average_radius << endl;
     features.push_back(rowTotal/total);
     features.push_back(colTotal/total);
     features.push_back(average_radius);
