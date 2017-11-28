@@ -15,8 +15,10 @@
 #include <vector>
 #include <fstream>
 #include <math.h>
+#include "matrix_functions.h"
 
 using namespace std;
+using namespace Matrix;
 
 namespace Programs {
 
