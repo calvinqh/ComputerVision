@@ -55,21 +55,17 @@ namespace Programs {
 
     //Calculate the light source vector
     //which is the normal of the brightest pixel
-    //FIX: the order of center and max!!!!!!!!!
     double deltaX = maxC-centerX;
     double deltaY = maxR-centerY;
     double p = -1* getPartialOfX(deltaX,deltaY,radius);
     double q = -1 * getPartialOfY(deltaX,deltaY,radius);
     
     double denominator = sqrt(pow(p,2) + pow(q,2) + 1);
-    light_source.push_back(p/denominator*maxBrightness);
-    light_source.push_back(q/denominator*maxBrightness);
+    light_source.push_back(p/denominator*maxBrightness); //scale and divide by length
+    light_source.push_back(q/denominator*maxBrightness); //scale and divide by length
 
-    //calculate the Z component of normal vector
     double z_comp = 1;
-    //R^2 - (X-Xc)^2 - (Y-Yc)^2
-    //z_comp = sqrt(pow(radius,2)-pow(deltaX,2)-pow(deltaY,2));
-    light_source.push_back(z_comp*maxBrightness/denominator);
+    light_source.push_back(z_comp*maxBrightness/denominator); //scale and divide by length
 
     return light_source;  
   }

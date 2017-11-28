@@ -22,7 +22,7 @@ using namespace Matrix;
 
 namespace Programs {
   
-
+  //Draws a white square with black center
   void createBlackPoint(Image* an_image, int row, int col) {
     for(int i = -1; i < 2; i++) {
       for(int j = -1; j < 2; j++) {
@@ -62,7 +62,7 @@ namespace Programs {
 
         vector<double> N; //will contain the components of the normal vector for the pixel
         double size = 0;
-        //S^-1 * I
+        //S^-1 * I, computing normal
         for(size_t source = 0; source < source_inverse.size(); source++) {
           double total = 0;
           for(size_t component = 0; component < source_inverse[0].size(); component++) {
@@ -74,12 +74,12 @@ namespace Programs {
         }
 
         size = sqrt(size);
-        //compute the normal  and draw
-        vector<int> coords = {0,0}; //x and y coords for the normal vector (col,row)
+        //divde normal vector by lengt
         for(size_t index = 0; index < N.size(); index++) {
           N[index] = N[index]/size;
         }
-
+        //Get points for drawing vector
+        vector<int> coords = {0,0}; //x and y coords for the normal vector (col,row)
         coords[0] = col + N[0] * 10;
         coords[1] = row + N[1] * 10;
 

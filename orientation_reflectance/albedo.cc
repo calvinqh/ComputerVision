@@ -22,9 +22,6 @@ using namespace Matrix;
 
 namespace Programs {
 
-  double mapValue(double value, double start, double end) {
-    return value;
-  }
 
   void ComputeSurfaceAlbedo(vector<vector<int>> directions, Image* image1, Image* image2, Image* image3, int threshold, Image* out_image ) {
 
@@ -46,14 +43,15 @@ namespace Programs {
           out_image->SetPixel(row,col,0);
           continue;
         }
+        //create intensity matrix
         vector<int> intensities;
         intensities.push_back(image1->GetPixel(row,col));
         intensities.push_back(image2->GetPixel(row,col));
         intensities.push_back(image3->GetPixel(row,col));
         int counter = 0;
 
-        double size = 0;
-        //S^-1 * I
+        double size = 0; //will contain the length of the normal vector ||N||
+        //S^-1 * I, compute the normal length
         for(size_t source = 0; source < source_inverse.size(); source++) {
           double total = 0;
           for(size_t component = 0; component < source_inverse[0].size(); component++) {
@@ -64,7 +62,7 @@ namespace Programs {
         }
 
         size = sqrt(size);
-        out_image->SetPixel(row,col, 127.1 * size );
+        out_image->SetPixel(row,col, 127.1 * size ); //draw the albedo point (scale because albedo ranges from 0-2)
       }
     }
   }

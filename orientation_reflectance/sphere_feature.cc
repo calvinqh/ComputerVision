@@ -38,10 +38,14 @@ namespace Programs {
     //i.e. row coord of center, column coord of center, radius
     vector<int> features;
     int rowTotal = 0, colTotal = 0, total = 0;
+    
+    //topR, top most Rpow
+    //bottomR, bottom most Row
+    //leftC, left most column
+    //rightC, right most column
     double topR = binary_image->num_rows(), bottomR = 0, leftC = binary_image->num_columns(), rightC = 0;
 
-    //finds the center of the image
-    //TODO: fix column and row for i and j
+    //finds the center of the image, also finds the biggest X and Y and smallest X and Y
     for(size_t i = 0; i < binary_image->num_rows(); i++) {
       for(size_t j = 0; j < binary_image->num_columns(); j++) {
         if(binary_image->GetPixel(i,j) <= 0)
